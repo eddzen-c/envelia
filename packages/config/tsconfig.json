@@ -1,0 +1,12 @@
+{
+  "extends": "./typescript/base.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "noEmit": true,
+    "target": "ES2023"
+  },
+  "include": ["eslint.config.js", "eslint/**/*.js", "prettier/**/*.js"]
+}

@@ -1,0 +1,39 @@
+# Dependencies and package-manager data
+node_modules/
+.pnpm-store/
+pnpm-lock.yaml
+
+# Build and generated outputs
+.next/
+out/
+dist/
+build/
+coverage/
+.turbo/
+storybook-static/
+playwright-report/
+test-results/
+blob-report/
+*.tsbuildinfo
+
+# Environment variables and local deployment files
+.env
+.env.*
+.dev.vars
+.vercel/
+.wrangler/
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Binary animation and 3D assets
+*.lottie
+*.glb
+*.wasm
+
+# Hand-crafted project presentation
+README.md
