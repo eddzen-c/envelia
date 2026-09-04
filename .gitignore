@@ -58,3 +58,6 @@ Desktop.ini
 *.pem
 *.key
 *.crt
+
+# Next.js generated type bridge
+**/next-env.d.ts

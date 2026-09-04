@@ -1,0 +1,118 @@
+@import 'tailwindcss';
+
+:root {
+  color-scheme: light;
+
+  --background: #f8f5ee;
+  --foreground: #182033;
+
+  --surface: #fffdf8;
+  --surface-muted: #eee8dc;
+
+  --muted: #686d78;
+  --border: #ddd5c7;
+
+  --primary: #6f35c5;
+  --primary-foreground: #ffffff;
+
+  --accent: #c7a76a;
+  --accent-foreground: #2c2112;
+
+  --focus-ring: #7c3aed;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-focus-ring: var(--focus-ring);
+}
+
+@theme {
+  --color-brand-50: #f6f2ff;
+  --color-brand-100: #eee6ff;
+  --color-brand-200: #dfd0ff;
+  --color-brand-300: #c9adff;
+  --color-brand-400: #aa7df5;
+  --color-brand-500: #8952e3;
+  --color-brand-600: #6f35c5;
+  --color-brand-700: #592a9f;
+  --color-brand-800: #492582;
+  --color-brand-900: #3d216a;
+  --color-brand-950: #271142;
+
+  --color-champagne-50: #fbf8f1;
+  --color-champagne-100: #f5edda;
+  --color-champagne-200: #ead8b3;
+  --color-champagne-300: #ddc187;
+  --color-champagne-400: #cda85f;
+  --color-champagne-500: #b88d43;
+  --color-champagne-600: #987135;
+  --color-champagne-700: #79572d;
+  --color-champagne-800: #63482a;
+  --color-champagne-900: #533d27;
+  --color-champagne-950: #302115;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --font-display: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
+
+  --radius-card: 1.5rem;
+  --shadow-soft: 0 24px 80px -36px rgb(24 32 51 / 28%);
+  --ease-envelia: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    min-width: 20rem;
+    background-color: var(--background);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100vh;
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+  }
+
+  :focus-visible {
+    outline: 0.125rem solid var(--focus-ring);
+    outline-offset: 0.1875rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
