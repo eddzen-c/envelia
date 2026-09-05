@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: General support
+    url: https://github.com/eddzen-c/envelia/blob/main/.github/SUPPORT.md
+    about: Review the support policy and use its private channel for account-specific questions.
+  - name: Security vulnerability
+    url: https://github.com/eddzen-c/envelia/security/advisories/new
+    about: Report security vulnerabilities privately instead of opening a public issue.
+  - name: Code of Conduct report
+    url: https://github.com/eddzen-c/envelia/blob/main/.github/CODE_OF_CONDUCT.md#reporting
+    about: Review the private reporting process for conduct incidents.

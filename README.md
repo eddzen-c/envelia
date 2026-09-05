@@ -60,7 +60,7 @@
 
 <div align="center">
 
-[Principios](#-principios-del-producto) · [Arquitectura](#-arquitectura) · [Stack](#-stack-técnico) · [Requisitos](#-requisitos-de-desarrollo) · [Empezar](#-cómo-empezar) · [Flujo de trabajo](#-flujo-de-trabajo) · [Roadmap](#-estado-y-roadmap)
+[Principios](#-principios-del-producto) · [Arquitectura](#-arquitectura) · [Stack](#-stack-técnico) · [Requisitos](#-requisitos-de-desarrollo) · [Empezar](#-cómo-empezar) · [Flujo de trabajo](#-flujo-de-trabajo) · [Roadmap](#-estado-y-roadmap) · [Comunidad](#-comunidad-y-políticas) · [Licencia](#-licencia-y-propiedad)
 
 </div>
 
@@ -160,8 +160,8 @@ envelia-studio/
 
 ```bash
 # Clona el repositorio
-git clone https://github.com/eddzen-c/envelia-studio.git
-cd envelia-studio
+git clone https://github.com/eddzen-c/envelia.git
+cd envelia
 
 # Instala dependencias
 pnpm install
@@ -209,6 +209,31 @@ gitGraph
 - [ ] Motor de animaciones de sobres
 - [ ] Sistema de RSVP
 - [ ] Micrositios por evento
+
+<br/>
+
+## 🤝 Comunidad y políticas
+
+Envelia Studio recibe reportes de errores y propuestas de funcionalidad mediante los formularios configurados en GitHub.
+
+Durante la preliberación no se aceptan contribuciones externas de código, documentación, diseño, recursos visuales ni otros materiales de implementación.
+
+- [Guía de contribución](.github/CONTRIBUTING.md)
+- [Código de conducta](.github/CODE_OF_CONDUCT.md)
+- [Política de seguridad](.github/SECURITY.md)
+- [Política de soporte](.github/SUPPORT.md)
+- [Reportar un error](https://github.com/eddzen-c/envelia/issues/new?template=bug-report.yml)
+- [Proponer una funcionalidad](https://github.com/eddzen-c/envelia/issues/new?template=feature-request.yml)
+
+<br/>
+
+## 🔒 Licencia y propiedad
+
+Envelia Studio es software propietario. Su disponibilidad pública en GitHub no concede permiso para usar, copiar, modificar, distribuir, desplegar o comercializar el software.
+
+Copyright © 2026 Edwin Hernandez. Todos los derechos reservados.
+
+Consulta [LICENSE.md](LICENSE.md) para conocer los términos aplicables.
 
 <br/>
 
