@@ -1,0 +1,135 @@
+name: Bug report
+description: Report a reproducible problem in Envelia Studio
+title: '[Bug]: '
+labels:
+  - bug
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve Envelia Studio.
+
+        Provide enough detail to reproduce the problem. Never include passwords,
+        access tokens, private invitations, personal data, or other secrets.
+
+  - type: dropdown
+    id: affected-area
+    attributes:
+      label: Affected area
+      description: Select the area where the problem occurs.
+      options:
+        - Marketing website
+        - Invitation editor
+        - Invitation experience
+        - Guest and RSVP management
+        - Authentication and accounts
+        - API and backend
+        - Email, WhatsApp, or notifications
+        - Infrastructure and developer tooling
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem description
+      description: Describe the problem and its impact.
+      placeholder: Explain what prevents you from completing the expected task.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Provide the smallest reliable sequence that triggers the problem.
+      placeholder: |
+        1. Open...
+        2. Select...
+        3. Observe...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: Explain what should have happened.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual behavior
+      description: Explain what happened instead.
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Include the operating system, device, browser, and relevant version.
+      placeholder: Windows 11, desktop, Microsoft Edge 152
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: Browsers affected
+      description: Select every browser where the problem was reproduced.
+      multiple: true
+      options:
+        - Google Chrome
+        - Microsoft Edge
+        - Mozilla Firefox
+        - Safari
+        - Mobile browser
+        - Not browser-specific
+
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: Frequency
+      description: Indicate how consistently the problem occurs.
+      options:
+        - Always
+        - Often
+        - Sometimes
+        - Once
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: Remove credentials, tokens, personal data, and unrelated output.
+      render: shell
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Screenshots or recordings
+      description: Attach visual evidence when it helps explain the problem.
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      options:
+        - label: I have read and agree to follow the [Code of Conduct](https://github.com/eddzen-c/envelia/blob/main/.github/CODE_OF_CONDUCT.md).
+          required: true
+        - label: This is not a security vulnerability. Security reports use [private vulnerability reporting](https://github.com/eddzen-c/envelia/security/advisories/new).
+          required: true
+        - label: I searched existing issues and did not find an equivalent report.
+          required: true
+        - label: I removed secrets, credentials, invitation data, and personal information.
+          required: true
+        - label: I included the minimum information needed to reproduce the problem.
+          required: true
