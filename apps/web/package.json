@@ -13,7 +13,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --max-warnings 0",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "next": "16.3.3",
@@ -24,12 +26,18 @@
     "@envelia/config": "workspace:*",
     "@next/eslint-plugin-next": "16.3.3",
     "@tailwindcss/postcss": "4.3.3",
+    "@testing-library/dom": "10.4.1",
+    "@testing-library/jest-dom": "7.0.1",
+    "@testing-library/react": "16.3.3",
     "@types/node": "24.13.3",
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.5",
+    "@vitejs/plugin-react": "6.1.1",
     "eslint": "10.9.1",
+    "jsdom": "30.0.1",
     "postcss": "8.5.26",
     "tailwindcss": "4.3.3",
-    "typescript": "6.0.3"
+    "typescript": "6.0.3",
+    "vitest": "5.0.0"
   }
 }
