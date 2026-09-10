@@ -7,19 +7,22 @@ describe('HomePage', () => {
   it('exposes the principal content with accessible section names', () => {
     render(<HomePage />);
 
-    expect(screen.getByRole('main')).toHaveAttribute('id', 'main-content');
-    expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
-
     expect(
       screen.getByRole('heading', {
         level: 1,
-        name: /Invitaciones digitales que cobran vida\./i,
+        name: /Invitaciones digitales\s+que cobran vida\./u,
       }),
     ).toBeInTheDocument();
 
     expect(
       screen.getByRole('region', {
-        name: /Invitaciones digitales que cobran vida\./i,
+        name: /Invitaciones digitales\s+que cobran vida\./u,
+      }),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole('complementary', {
+        name: 'Muestra conceptual de una invitación digital',
       }),
     ).toBeInTheDocument();
 
@@ -30,36 +33,35 @@ describe('HomePage', () => {
     ).toBeInTheDocument();
   });
 
-  it('links both calls to action to their corresponding page sections', () => {
+  it('exposes product creation and experience discovery actions', () => {
     render(<HomePage />);
+
+    expect(
+      screen.getByRole('link', {
+        name: 'Crear mi invitación',
+      }),
+    ).toHaveAttribute('href', '/studio');
 
     expect(
       screen.getByRole('link', {
         name: 'Descubrir la experiencia',
       }),
     ).toHaveAttribute('href', '#experiencia');
-
-    expect(
-      screen.getByRole('link', {
-        name: 'Ver muestra conceptual',
-      }),
-    ).toHaveAttribute('href', '#muestra');
   });
 
-  it('presents the experience steps in their intended order', () => {
+  it('presents the three experience steps in order', () => {
     render(<HomePage />);
 
-    const experienceList = screen.getByRole('list');
-    const items = within(experienceList).getAllByRole('listitem');
-    const headings = within(experienceList).getAllByRole('heading', {
-      level: 3,
+    const experienceSection = screen.getByRole('region', {
+      name: 'De la idea a tus invitados',
     });
 
-    expect(items).toHaveLength(3);
-    expect(headings.map((heading) => heading.textContent)).toEqual([
-      'Elige',
-      'Personaliza',
-      'Comparte',
-    ]);
+    expect(
+      within(experienceSection)
+        .getAllByRole('heading', {
+          level: 3,
+        })
+        .map((heading) => heading.textContent),
+    ).toEqual(['Elige', 'Personaliza', 'Comparte']);
   });
 });

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 const experienceItems = [
   {
     step: '01',
@@ -48,19 +49,19 @@ export default function HomePage() {
             </p>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <Link
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-soft transition-colors hover:bg-brand-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary motion-reduce:transition-none"
+                href="/studio"
+              >
+                Crear mi invitación
+                <span aria-hidden="true">&rarr;</span>
+              </Link>
+
               <a
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-soft transition-colors hover:bg-brand-700 motion-reduce:transition-none"
+                className="inline-flex min-h-12 items-center justify-center rounded-full border border-border bg-surface px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-brand-300 hover:bg-brand-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary motion-reduce:transition-none"
                 href="#experiencia"
               >
                 Descubrir la experiencia
-                <span aria-hidden="true">&rarr;</span>
-              </a>
-
-              <a
-                className="inline-flex min-h-12 items-center justify-center rounded-full border border-border bg-surface px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-brand-300 hover:bg-brand-50 motion-reduce:transition-none"
-                href="#muestra"
-              >
-                Ver muestra conceptual
               </a>
             </div>
           </div>

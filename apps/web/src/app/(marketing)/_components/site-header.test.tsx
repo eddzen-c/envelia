@@ -14,9 +14,13 @@ describe('SiteHeader', () => {
     ).toHaveAttribute('href', '/');
   });
 
-  it('communicates the current pre-release status', () => {
+  it('provides direct access to the invitation studio', () => {
     render(<SiteHeader />);
 
-    expect(screen.getByText('Próximamente')).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', {
+        name: 'Abrir Studio',
+      }),
+    ).toHaveAttribute('href', '/studio');
   });
 });
