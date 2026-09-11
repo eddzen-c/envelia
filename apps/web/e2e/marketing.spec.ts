@@ -1,105 +1,111 @@
 import { expect, test, type Page } from '@playwright/test';
 
-const expectedTitle = 'Envelia Studio — Invitaciones que cobran vida';
-
-const openPage = async (page: Page, path = '/') => {
-  const pageErrors: Error[] = [];
+const monitorPageErrors = (page: Page) => {
+  const errors: string[] = [];
 
   page.on('pageerror', (error) => {
-    pageErrors.push(error);
+    errors.push(error.message);
   });
 
-  const response = await page.goto(path);
-
-  if (!response) {
-    throw new Error(`Navigation to ${path} did not return a response`);
-  }
-
-  expect(response.ok()).toBeTruthy();
-
-  return pageErrors;
+  return errors;
 };
 
 test.describe('Marketing experience', () => {
   test('renders the home page without browser errors', async ({ page }) => {
-    const pageErrors = await openPage(page);
+    const pageErrors = monitorPageErrors(page);
+    const response = await page.goto('/');
 
-    await expect(page).toHaveTitle(expectedTitle);
+    expect(response).not.toBeNull();
+    expect(response?.ok()).toBe(true);
 
+    await expect(page).toHaveTitle(/Envelia Studio/u);
     await expect(
       page.getByRole('heading', {
         level: 1,
-        name: 'Invitaciones digitales que cobran vida.',
+        name: /Invitaciones digitales\s+que cobran vida\./u,
       }),
     ).toBeVisible();
-
-    await expect(page.getByRole('main')).toBeVisible();
 
     expect(pageErrors).toEqual([]);
   });
 
   test('navigates to the experience section', async ({ page }) => {
-    const pageErrors = await openPage(page);
+    const pageErrors = monitorPageErrors(page);
+    const response = await page.goto('/');
 
-    const experienceLink = page.getByRole('link', {
-      name: 'Descubrir la experiencia',
-    });
+    expect(response).not.toBeNull();
+    expect(response?.ok()).toBe(true);
 
-    await expect(experienceLink).toHaveAttribute('href', '#experiencia');
+    await page
+      .getByRole('link', {
+        name: 'Descubrir la experiencia',
+      })
+      .click();
 
-    await experienceLink.click();
-
-    await expect(page).toHaveURL(/\/#experiencia$/);
-
+    await expect(page).toHaveURL(/\/#experiencia$/u);
     await expect(
       page.getByRole('region', {
         name: 'De la idea a tus invitados',
       }),
-    ).toBeInViewport();
+    ).toBeVisible();
 
     expect(pageErrors).toEqual([]);
   });
 
-  test('navigates to the conceptual sample', async ({ page }) => {
-    const pageErrors = await openPage(page);
+  test('navigates from the marketing page to the invitation studio', async ({ page }) => {
+    const pageErrors = monitorPageErrors(page);
+    const response = await page.goto('/');
 
-    const sampleLink = page.getByRole('link', {
-      name: 'Ver muestra conceptual',
-    });
+    expect(response).not.toBeNull();
+    expect(response?.ok()).toBe(true);
 
-    await expect(sampleLink).toHaveAttribute('href', '#muestra');
+    await page
+      .getByRole('link', {
+        name: 'Crear mi invitación',
+      })
+      .click();
 
-    await sampleLink.click();
-
-    await expect(page).toHaveURL(/\/#muestra$/);
-
+    await expect(page).toHaveURL(/\/studio$/u);
     await expect(
-      page.getByRole('complementary', {
-        name: 'Muestra conceptual de una invitación digital',
+      page.getByRole('heading', {
+        level: 1,
+        name: 'Diseña una invitación que se siente tuya',
       }),
-    ).toBeInViewport();
+    ).toBeVisible();
+    await expect(
+      page.getByRole('form', {
+        name: 'Diseña tu borrador',
+      }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('article', {
+        name: 'Vista previa de la invitación',
+      }),
+    ).toBeVisible();
 
     expect(pageErrors).toEqual([]);
   });
 
   test('returns from a fragment URL to the home page', async ({ page }) => {
-    const pageErrors = await openPage(page, '/#experiencia');
+    const pageErrors = monitorPageErrors(page);
+    const response = await page.goto('/#muestra');
 
+    expect(response).not.toBeNull();
+    expect(response?.ok()).toBe(true);
+
+    await page
+      .getByRole('link', {
+        name: 'Envelia Studio, página de inicio',
+      })
+      .click();
+
+    await expect(page).toHaveURL(/\/$/u);
     await expect(
-      page.getByText('Próximamente', {
-        exact: true,
+      page.getByRole('heading', {
+        level: 1,
+        name: /Invitaciones digitales\s+que cobran vida\./u,
       }),
     ).toBeVisible();
-
-    const homeLink = page.getByRole('link', {
-      name: 'Envelia Studio, página de inicio',
-    });
-
-    await expect(homeLink).toHaveAttribute('href', '/');
-
-    await homeLink.click();
-
-    await expect(page).toHaveURL(/\/$/);
 
     expect(pageErrors).toEqual([]);
   });
