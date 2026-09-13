@@ -34,14 +34,6 @@ export default function StudioPage() {
               Ajusta la información esencial, explora estilos cuidadosamente seleccionados y observa
               el resultado mientras escribes.
             </p>
-
-            <div
-              aria-label="Estado del borrador"
-              className="mt-6 inline-flex items-center gap-3 rounded-full border border-border bg-surface px-4 py-2 text-sm font-semibold text-muted"
-            >
-              <span aria-hidden="true" className="size-2 rounded-full bg-primary" />
-              Borrador local · no se guardará al salir
-            </div>
           </div>
         </header>
 
