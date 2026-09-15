@@ -9,6 +9,7 @@ import { invitationPreviewPalettes } from './invitation-preview-palettes';
 
 type InvitationPreviewCardProps = Readonly<{
   preview: InvitationPreview;
+  presentation?: 'preview' | 'shared';
 }>;
 
 type InvitationPreviewStyle = CSSProperties &
@@ -32,18 +33,26 @@ const createPreviewStyle = (theme: InvitationThemeId): InvitationPreviewStyle =>
   };
 };
 
-export function InvitationPreviewCard({ preview }: InvitationPreviewCardProps) {
+export function InvitationPreviewCard({
+  preview,
+  presentation = 'preview',
+}: InvitationPreviewCardProps) {
   const theme = invitationThemes.find(({ id }) => id === preview.theme) ?? invitationThemes[0];
+
+  const isSharedInvitation = presentation === 'shared';
 
   return (
     <article
-      aria-label="Vista previa de la invitación"
+      aria-label={isSharedInvitation ? 'Invitación compartida' : 'Vista previa de la invitación'}
       className="rounded-[2rem] border border-[var(--preview-border)] bg-[var(--preview-surface)] p-4 text-[var(--preview-foreground)] shadow-soft sm:p-6"
+      data-presentation={presentation}
       data-theme={preview.theme}
       style={createPreviewStyle(preview.theme)}
     >
       <div className="flex items-center justify-between gap-4 px-2 pb-4 text-xs font-bold tracking-[0.16em] uppercase">
-        <p className="text-[var(--preview-accent)]">Vista previa</p>
+        <p className="text-[var(--preview-accent)]">
+          {isSharedInvitation ? 'Invitación' : 'Vista previa'}
+        </p>
 
         <p className="text-right text-[var(--preview-muted)]">
           <span className="sr-only">Estilo seleccionado: </span>
