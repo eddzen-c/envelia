@@ -13,6 +13,8 @@ import {
   serializeInvitationDraft,
   type InvitationDraftStorage,
 } from '../model/invitation-draft-persistence';
+import { parsePortableInvitationPayload } from '../model/invitation-draft-portable-link';
+import type { InvitationShareEnvironment } from './invitation-share-controls';
 import { InvitationDraftWorkspace } from './invitation-draft-workspace';
 
 const createStorage = (initialValue: string | null = null) => {
@@ -33,10 +35,18 @@ const createStorage = (initialValue: string | null = null) => {
   } satisfies InvitationDraftStorage;
 };
 
-const renderWorkspace = (storage: InvitationDraftStorage = createStorage()) => {
+const renderWorkspace = (
+  storage: InvitationDraftStorage = createStorage(),
+  shareEnvironment?: InvitationShareEnvironment,
+) => {
   const user = userEvent.setup();
 
-  render(<InvitationDraftWorkspace storage={storage} />);
+  render(
+    <InvitationDraftWorkspace
+      storage={storage}
+      {...(shareEnvironment ? { shareEnvironment } : {})}
+    />,
+  );
 
   const form = screen.getByRole('form', {
     name: 'Diseña tu borrador',
@@ -50,12 +60,23 @@ const renderWorkspace = (storage: InvitationDraftStorage = createStorage()) => {
   const persistenceStatus = screen.getByRole('status', {
     name: 'Estado del borrador',
   });
+  const shareControls = screen.getByRole('region', {
+    name: 'Envía esta invitación con un enlace',
+  });
+  const shareButton = within(shareControls).getByRole('button', {
+    name: 'Compartir invitación',
+  });
+  const shareStatus = within(shareControls).getByRole('status', {
+    name: 'Estado del enlace compartible',
+  });
 
   return {
     user,
     form,
     preview,
     persistenceStatus,
+    shareButton,
+    shareStatus,
   };
 };
 
@@ -366,5 +387,68 @@ describe('InvitationDraftWorkspace', () => {
     expect(preview).toHaveTextContent('Evento durante esta sesión');
     expect(persistenceStatus).toHaveTextContent('El guardado local no está disponible.');
     expect(storage.setItem).toHaveBeenCalled();
+  });
+
+  it('shares the current edited draft without altering local persistence', async () => {
+    const storage = createStorage();
+    const writeText = vi.fn<(value: string) => Promise<void>>().mockResolvedValue(undefined);
+    const shareEnvironment = {
+      origin: 'https://envelia.test/studio',
+      writeText,
+    } satisfies InvitationShareEnvironment;
+
+    const { user, form, persistenceStatus, shareButton, shareStatus } = renderWorkspace(
+      storage,
+      shareEnvironment,
+    );
+
+    await waitForEmptyStorage(persistenceStatus);
+
+    const title = within(form).getByRole('textbox', {
+      name: /^Título del evento\b/u,
+    });
+
+    await user.clear(title);
+    await user.type(title, 'Cena bajo las estrellas');
+
+    await waitFor(() => {
+      expect(persistenceStatus).toHaveTextContent('Borrador guardado en este navegador.');
+    });
+
+    const expectedDraft: InvitationDraft = {
+      ...initialInvitationDraft,
+      eventTitle: 'Cena bajo las estrellas',
+    };
+
+    expect(storage.setItem).toHaveBeenLastCalledWith(
+      invitationDraftStorageKey,
+      serializeInvitationDraft(expectedDraft),
+    );
+
+    const storageWritesBeforeSharing = storage.setItem.mock.calls.length;
+
+    await user.click(shareButton);
+
+    await waitFor(() => {
+      expect(shareStatus).toHaveTextContent('Enlace copiado al portapapeles.');
+    });
+
+    expect(writeText).toHaveBeenCalledTimes(1);
+    expect(storage.setItem).toHaveBeenCalledTimes(storageWritesBeforeSharing);
+
+    const sharedUrlValue = writeText.mock.calls[0]?.[0];
+
+    if (!sharedUrlValue) {
+      throw new Error('Expected the current draft URL to be copied');
+    }
+
+    const sharedUrl = new URL(sharedUrlValue);
+
+    expect(sharedUrl.pathname).toBe('/invitation');
+    expect(sharedUrl.search).toBe('');
+    expect(parsePortableInvitationPayload(sharedUrl.hash)).toEqual({
+      status: 'decoded',
+      draft: expectedDraft,
+    });
   });
 });

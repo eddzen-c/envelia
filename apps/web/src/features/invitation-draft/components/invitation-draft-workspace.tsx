@@ -14,9 +14,14 @@ import {
 } from '../model/invitation-draft-persistence';
 import { InvitationDraftForm } from './invitation-draft-form';
 import { InvitationPreviewCard } from './invitation-preview-card';
+import {
+  InvitationShareControls,
+  type InvitationShareEnvironment,
+} from './invitation-share-controls';
 
 type InvitationDraftWorkspaceProps = Readonly<{
   storage?: InvitationDraftStorage;
+  shareEnvironment?: InvitationShareEnvironment;
 }>;
 
 type PersistenceStatus =
@@ -48,7 +53,10 @@ const resolveInvitationDraftStorage = (
   }
 };
 
-export function InvitationDraftWorkspace({ storage }: InvitationDraftWorkspaceProps) {
+export function InvitationDraftWorkspace({
+  storage,
+  shareEnvironment,
+}: InvitationDraftWorkspaceProps) {
   const [draft, setDraft] = useState<InvitationDraft>(createInitialInvitationDraft);
   const [persistenceStatus, setPersistenceStatus] = useState<PersistenceStatus>('checking');
 
@@ -113,6 +121,13 @@ export function InvitationDraftWorkspace({ storage }: InvitationDraftWorkspacePr
           }`}
         />
         {persistenceMessages[persistenceStatus]}
+      </div>
+
+      <div className="mt-6">
+        <InvitationShareControls
+          draft={draft}
+          {...(shareEnvironment ? { environment: shareEnvironment } : {})}
+        />
       </div>
 
       <div className="mt-8 grid items-start gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10">
