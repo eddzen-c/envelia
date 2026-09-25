@@ -30,6 +30,14 @@ export const invitationDraftLimits = {
   message: 280,
 } as const;
 
+export const invitationDraftKeys = [
+  'eventTitle',
+  'eventDate',
+  'location',
+  'message',
+  'theme',
+] as const satisfies readonly (keyof InvitationDraft)[];
+
 export const invitationThemes = [
   {
     id: 'lavender',
@@ -63,6 +71,8 @@ export const initialInvitationDraft = {
   theme: 'lavender',
 } as const satisfies InvitationDraft;
 
+type UnknownRecord = Record<string, unknown>;
+
 const invitationDatePattern = /^\d{4}-\d{2}-\d{2}$/u;
 
 const invitationDateFormatter = new Intl.DateTimeFormat('es-MX', {
@@ -71,6 +81,18 @@ const invitationDateFormatter = new Intl.DateTimeFormat('es-MX', {
   year: 'numeric',
   timeZone: 'UTC',
 });
+
+const isRecord = (value: unknown): value is UnknownRecord =>
+  typeof value === 'object' && value !== null && !Array.isArray(value);
+
+const hasExactKeys = (value: UnknownRecord, expectedKeys: readonly string[]) => {
+  const actualKeys = Object.keys(value);
+
+  return (
+    actualKeys.length === expectedKeys.length &&
+    expectedKeys.every((key) => Object.prototype.hasOwnProperty.call(value, key))
+  );
+};
 
 const getPreviewText = (value: string, fallback: string) => {
   const normalizedValue = value.trim();
@@ -92,12 +114,33 @@ const parseInvitationDate = (value: string) => {
   return parsedDate;
 };
 
+const isSupportedInvitationDate = (value: unknown) =>
+  typeof value === 'string' && (value.length === 0 || parseInvitationDate(value) !== null);
+
 export const createInitialInvitationDraft = (): InvitationDraft => ({
   ...initialInvitationDraft,
 });
 
 export const isInvitationThemeId = (value: string): value is InvitationThemeId =>
   (invitationThemeIds as readonly string[]).includes(value);
+
+export const isInvitationDraft = (value: unknown): value is InvitationDraft => {
+  if (!isRecord(value) || !hasExactKeys(value, invitationDraftKeys)) {
+    return false;
+  }
+
+  return (
+    typeof value.eventTitle === 'string' &&
+    value.eventTitle.length <= invitationDraftLimits.eventTitle &&
+    isSupportedInvitationDate(value.eventDate) &&
+    typeof value.location === 'string' &&
+    value.location.length <= invitationDraftLimits.location &&
+    typeof value.message === 'string' &&
+    value.message.length <= invitationDraftLimits.message &&
+    typeof value.theme === 'string' &&
+    isInvitationThemeId(value.theme)
+  );
+};
 
 export const formatInvitationDate = (value: string) => {
   const parsedDate = parseInvitationDate(value);

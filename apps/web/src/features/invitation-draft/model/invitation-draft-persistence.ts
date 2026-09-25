@@ -1,7 +1,7 @@
 import {
   initialInvitationDraft,
-  invitationDraftLimits,
-  isInvitationThemeId,
+  invitationDraftKeys,
+  isInvitationDraft,
   type InvitationDraft,
 } from './invitation-draft';
 
@@ -30,17 +30,7 @@ type InvitationDraftEnvelope = Readonly<{
   draft: InvitationDraft;
 }>;
 
-const invitationDraftKeys = [
-  'eventTitle',
-  'eventDate',
-  'location',
-  'message',
-  'theme',
-] as const satisfies readonly (keyof InvitationDraft)[];
-
 const invitationDraftEnvelopeKeys = ['version', 'draft'] as const;
-
-const invitationDatePattern = /^\d{4}-\d{2}-\d{2}$/u;
 
 const isRecord = (value: unknown): value is UnknownRecord =>
   typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -51,42 +41,6 @@ const hasExactKeys = (value: UnknownRecord, expectedKeys: readonly string[]) => 
   return (
     actualKeys.length === expectedKeys.length &&
     expectedKeys.every((key) => Object.prototype.hasOwnProperty.call(value, key))
-  );
-};
-
-const isSupportedDate = (value: unknown) => {
-  if (typeof value !== 'string') {
-    return false;
-  }
-
-  if (value.length === 0) {
-    return true;
-  }
-
-  if (!invitationDatePattern.test(value)) {
-    return false;
-  }
-
-  const parsedDate = new Date(`${value}T00:00:00.000Z`);
-
-  return !Number.isNaN(parsedDate.getTime()) && parsedDate.toISOString().slice(0, 10) === value;
-};
-
-export const isInvitationDraft = (value: unknown): value is InvitationDraft => {
-  if (!isRecord(value) || !hasExactKeys(value, invitationDraftKeys)) {
-    return false;
-  }
-
-  return (
-    typeof value.eventTitle === 'string' &&
-    value.eventTitle.length <= invitationDraftLimits.eventTitle &&
-    isSupportedDate(value.eventDate) &&
-    typeof value.location === 'string' &&
-    value.location.length <= invitationDraftLimits.location &&
-    typeof value.message === 'string' &&
-    value.message.length <= invitationDraftLimits.message &&
-    typeof value.theme === 'string' &&
-    isInvitationThemeId(value.theme)
   );
 };
 

@@ -1,5 +1,4 @@
-import type { InvitationDraft } from './invitation-draft';
-import { isInvitationDraft } from './invitation-draft-persistence';
+import { isInvitationDraft, type InvitationDraft } from './invitation-draft';
 
 export const portableInvitationPayloadVersion = 1 as const;
 
