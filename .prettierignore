@@ -4,6 +4,7 @@ node_modules/
 pnpm-lock.yaml
 
 # Build and generated outputs
+apps/web/drizzle/meta/
 .next/
 out/
 dist/
