@@ -1,0 +1,207 @@
+{
+  "id": "b22ff7ab-4854-41b5-a278-98f25a1966b9",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.invitation_projects": {
+      "name": "invitation_projects",
+      "schema": "",
+      "columns": {
+        "project_id": {
+          "name": "project_id",
+          "type": "varchar(128)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "owner_id": {
+          "name": "owner_id",
+          "type": "varchar(128)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "event_title": {
+          "name": "event_title",
+          "type": "varchar(80)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "event_date": {
+          "name": "event_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "location": {
+          "name": "location",
+          "type": "varchar(120)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "message": {
+          "name": "message",
+          "type": "varchar(280)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "theme": {
+          "name": "theme",
+          "type": "invitation_theme",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "invitation_project_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp (3) with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp (3) with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "publication_id": {
+          "name": "publication_id",
+          "type": "varchar(128)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "published_at": {
+          "name": "published_at",
+          "type": "timestamp (3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "archived_at": {
+          "name": "archived_at",
+          "type": "timestamp (3) with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "invitation_projects_owner_status_updated_idx": {
+          "name": "invitation_projects_owner_status_updated_idx",
+          "columns": [
+            {
+              "expression": "owner_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "updated_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "invitation_projects_publication_id_unique_idx": {
+          "name": "invitation_projects_publication_id_unique_idx",
+          "columns": [
+            {
+              "expression": "publication_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "invitation_projects_project_id_format_check": {
+          "name": "invitation_projects_project_id_format_check",
+          "value": "\"invitation_projects\".\"project_id\" ~ '^[A-Za-z0-9][A-Za-z0-9_-]*$'"
+        },
+        "invitation_projects_owner_id_format_check": {
+          "name": "invitation_projects_owner_id_format_check",
+          "value": "\"invitation_projects\".\"owner_id\" ~ '^[A-Za-z0-9][A-Za-z0-9_-]*$'"
+        },
+        "invitation_projects_publication_id_format_check": {
+          "name": "invitation_projects_publication_id_format_check",
+          "value": "\"invitation_projects\".\"publication_id\" IS NULL OR \"invitation_projects\".\"publication_id\" ~ '^[A-Za-z0-9][A-Za-z0-9_-]*$'"
+        },
+        "invitation_projects_lifecycle_check": {
+          "name": "invitation_projects_lifecycle_check",
+          "value": "\n        (\n          \"invitation_projects\".\"status\" = 'draft'\n          AND \"invitation_projects\".\"publication_id\" IS NULL\n          AND \"invitation_projects\".\"published_at\" IS NULL\n          AND \"invitation_projects\".\"archived_at\" IS NULL\n        )\n        OR\n        (\n          \"invitation_projects\".\"status\" = 'published'\n          AND \"invitation_projects\".\"publication_id\" IS NOT NULL\n          AND \"invitation_projects\".\"published_at\" IS NOT NULL\n          AND \"invitation_projects\".\"archived_at\" IS NULL\n        )\n        OR\n        (\n          \"invitation_projects\".\"status\" = 'archived'\n          AND \"invitation_projects\".\"archived_at\" IS NOT NULL\n          AND\n          (\n            (\n              \"invitation_projects\".\"publication_id\" IS NULL\n              AND \"invitation_projects\".\"published_at\" IS NULL\n            )\n            OR\n            (\n              \"invitation_projects\".\"publication_id\" IS NOT NULL\n              AND \"invitation_projects\".\"published_at\" IS NOT NULL\n            )\n          )\n        )\n      "
+        },
+        "invitation_projects_updated_at_order_check": {
+          "name": "invitation_projects_updated_at_order_check",
+          "value": "\"invitation_projects\".\"updated_at\" >= \"invitation_projects\".\"created_at\""
+        },
+        "invitation_projects_published_at_order_check": {
+          "name": "invitation_projects_published_at_order_check",
+          "value": "\n        \"invitation_projects\".\"published_at\" IS NULL\n        OR\n        (\n          \"invitation_projects\".\"published_at\" >= \"invitation_projects\".\"created_at\"\n          AND \"invitation_projects\".\"published_at\" <= \"invitation_projects\".\"updated_at\"\n        )\n      "
+        },
+        "invitation_projects_archived_at_order_check": {
+          "name": "invitation_projects_archived_at_order_check",
+          "value": "\n        \"invitation_projects\".\"archived_at\" IS NULL\n        OR\n        (\n          \"invitation_projects\".\"archived_at\" >= \"invitation_projects\".\"created_at\"\n          AND \"invitation_projects\".\"archived_at\" <= \"invitation_projects\".\"updated_at\"\n        )\n      "
+        },
+        "invitation_projects_publication_archive_order_check": {
+          "name": "invitation_projects_publication_archive_order_check",
+          "value": "\n        \"invitation_projects\".\"published_at\" IS NULL\n        OR \"invitation_projects\".\"archived_at\" IS NULL\n        OR \"invitation_projects\".\"published_at\" <= \"invitation_projects\".\"archived_at\"\n      "
+        }
+      },
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.invitation_project_status": {
+      "name": "invitation_project_status",
+      "schema": "public",
+      "values": [
+        "draft",
+        "published",
+        "archived"
+      ]
+    },
+    "public.invitation_theme": {
+      "name": "invitation_theme",
+      "schema": "public",
+      "values": [
+        "lavender",
+        "champagne",
+        "midnight"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

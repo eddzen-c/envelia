@@ -6,3 +6,5 @@ minimumReleaseAge: 1440
 minimumReleaseAgeStrict: true
 blockExoticSubdeps: true
 trustLockfile: false
+allowBuilds:
+  esbuild: true
