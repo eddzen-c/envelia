@@ -1,18 +1,15 @@
 import { expect, test, type Page } from '@playwright/test';
 
-import {
-  initialInvitationDraft,
-  type InvitationDraft,
-} from '../src/features/invitation-draft/model/invitation-draft';
+import type { InvitationDraft } from '../src/features/invitation-draft/model/invitation-draft';
 import {
   encodePortableInvitationDraft,
   portableInvitationMaxEncodedLength,
   portableInvitationPath,
 } from '../src/features/invitation-draft/model/invitation-draft-portable-link';
 import {
-  invitationDraftStorageKey,
-  serializeInvitationDraft,
-} from '../src/features/invitation-draft/model/invitation-draft-persistence';
+  invitationProjectLibraryStorageKey,
+  parseInvitationProjectLibrary,
+} from '../src/features/invitation-draft/model/invitation-project-library-persistence';
 
 const monitorPageErrors = (page: Page) => {
   const errors: string[] = [];
@@ -51,7 +48,7 @@ const createPortableInvitationURL = (baseURL: string, draft: InvitationDraft) =>
 };
 
 test.describe('Portable invitation links', () => {
-  test('shares the current draft with an isolated recipient without replacing local data', async ({
+  test('shares the current project with an isolated recipient without replacing local data', async ({
     baseURL,
     browser,
     context,
@@ -59,6 +56,15 @@ test.describe('Portable invitation links', () => {
   }) => {
     const applicationURL = requireBaseURL(baseURL);
     const senderErrors = monitorPageErrors(page);
+
+    const readStoredProjects = async (targetPage: Page) => {
+      const serializedLibrary = await targetPage.evaluate(
+        (storageKey) => window.localStorage.getItem(storageKey),
+        invitationProjectLibraryStorageKey,
+      );
+
+      return serializedLibrary ? parseInvitationProjectLibrary(serializedLibrary) : null;
+    };
 
     await context.grantPermissions(['clipboard-read', 'clipboard-write'], {
       origin: applicationURL,
@@ -76,11 +82,11 @@ test.describe('Portable invitation links', () => {
     expect(studioResponse).not.toBeNull();
     expect(studioResponse?.ok()).toBe(true);
 
-    const persistenceStatus = page.getByRole('status', {
-      name: 'Estado del borrador',
-    });
-
-    await expect(persistenceStatus).toContainText('Los cambios se guardarán en este navegador.');
+    await page
+      .getByRole('button', {
+        name: 'Crear mi primera invitación',
+      })
+      .click();
 
     const senderDraft: InvitationDraft = {
       eventTitle: 'Cena bajo las estrellas',
@@ -90,31 +96,35 @@ test.describe('Portable invitation links', () => {
       theme: 'midnight',
     };
 
-    const form = page.getByRole('form', {
+    const senderForm = page.getByRole('form', {
       name: 'Diseña tu borrador',
     });
 
-    await form
+    await senderForm
       .getByRole('textbox', {
-        name: 'Título del evento',
+        name: /^Título del evento\b/u,
       })
       .fill(senderDraft.eventTitle);
-    await form.getByLabel('Fecha del evento').fill(senderDraft.eventDate);
-    await form
+    await senderForm.getByLabel('Fecha del evento').fill(senderDraft.eventDate);
+    await senderForm
       .getByRole('textbox', {
         name: 'Lugar',
       })
       .fill(senderDraft.location);
-    await form
+    await senderForm
       .getByRole('textbox', {
         name: 'Mensaje',
       })
       .fill(senderDraft.message);
-    await form
+    await senderForm
       .getByRole('radio', {
         name: 'Medianoche',
       })
       .check();
+
+    await expect
+      .poll(async () => (await readStoredProjects(page))?.[0]?.content.eventTitle)
+      .toBe(senderDraft.eventTitle);
 
     await page
       .getByRole('button', {
@@ -159,32 +169,24 @@ test.describe('Portable invitation links', () => {
       expect(recipientStudioResponse).not.toBeNull();
       expect(recipientStudioResponse?.ok()).toBe(true);
 
-      await expect(
-        recipientPage.getByRole('status', {
-          name: 'Estado del borrador',
-        }),
-      ).toContainText('Los cambios se guardarán en este navegador.');
-
-      const recipientTitle = recipientPage
-        .getByRole('form', {
-          name: 'Diseña tu borrador',
+      await recipientPage
+        .getByRole('button', {
+          name: 'Crear mi primera invitación',
         })
-        .getByRole('textbox', {
-          name: 'Título del evento',
-        });
+        .click();
 
-      await recipientTitle.fill('Borrador privado del destinatario');
+      const recipientForm = recipientPage.getByRole('form', {
+        name: 'Diseña tu borrador',
+      });
+      const recipientTitle = recipientForm.getByRole('textbox', {
+        name: /^Título del evento\b/u,
+      });
 
-      await expect(
-        recipientPage.getByRole('status', {
-          name: 'Estado del borrador',
-        }),
-      ).toContainText('Borrador guardado en este navegador.');
+      await recipientTitle.fill('Proyecto privado del destinatario');
 
-      const recipientDraft: InvitationDraft = {
-        ...initialInvitationDraft,
-        eventTitle: 'Borrador privado del destinatario',
-      };
+      await expect
+        .poll(async () => (await readStoredProjects(recipientPage))?.[0]?.content.eventTitle)
+        .toBe('Proyecto privado del destinatario');
 
       const sharedResponse = await recipientPage.goto(sharedURL);
 
@@ -202,24 +204,41 @@ test.describe('Portable invitation links', () => {
       await expect(sharedInvitation).toContainText(senderDraft.location);
       await expect(sharedInvitation).toContainText(senderDraft.message);
 
-      const storedRecipientDraft = await recipientPage.evaluate(
-        (storageKey) => localStorage.getItem(storageKey),
-        invitationDraftStorageKey,
+      expect((await readStoredProjects(recipientPage))?.[0]?.content.eventTitle).toBe(
+        'Proyecto privado del destinatario',
       );
 
-      expect(storedRecipientDraft).toBe(serializeInvitationDraft(recipientDraft));
       expect(invitationDocumentRequests).toEqual([
         new URL(portableInvitationPath, applicationURL).toString(),
       ]);
 
       await recipientPage.goto('/studio');
 
-      await expect(recipientTitle).toHaveValue(recipientDraft.eventTitle);
       await expect(
-        recipientPage.getByRole('status', {
-          name: 'Estado del borrador',
+        recipientPage.getByRole('heading', {
+          name: 'Proyecto privado del destinatario',
         }),
-      ).toContainText('Borrador recuperado de este navegador.');
+      ).toBeVisible();
+
+      await recipientPage
+        .getByRole('button', {
+          name: 'Abrir Proyecto privado del destinatario',
+        })
+        .click();
+
+      await expect(
+        recipientPage
+          .getByRole('form', {
+            name: 'Diseña tu borrador',
+          })
+          .getByRole('textbox', {
+            name: /^Título del evento\b/u,
+          }),
+      ).toHaveValue('Proyecto privado del destinatario');
+
+      expect((await readStoredProjects(page))?.[0]?.content.eventTitle).toBe(
+        senderDraft.eventTitle,
+      );
 
       expect(senderErrors).toEqual([]);
       expect(recipientErrors).toEqual([]);
@@ -227,7 +246,6 @@ test.describe('Portable invitation links', () => {
       await recipientContext.close();
     }
   });
-
   test('offers recovery for a portable link without a fragment', async ({ page }) => {
     const pageErrors = monitorPageErrors(page);
     const response = await page.goto(portableInvitationPath);
