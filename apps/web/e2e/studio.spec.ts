@@ -1,5 +1,9 @@
 import { expect, test, type Page } from '@playwright/test';
-import { invitationDraftStorageKey } from '../src/features/invitation-draft/model/invitation-draft-persistence';
+
+import {
+  invitationProjectLibraryStorageKey,
+  parseInvitationProjectLibrary,
+} from '../src/features/invitation-draft/model/invitation-project-library-persistence';
 
 const monitorPageErrors = (page: Page) => {
   const errors: string[] = [];
@@ -11,24 +15,55 @@ const monitorPageErrors = (page: Page) => {
   return errors;
 };
 
-test.describe('Invitation draft studio', () => {
-  test('updates the preview while the invitation is edited', async ({ page }) => {
+const createFirstProject = async (page: Page) => {
+  await page
+    .getByRole('button', {
+      name: 'Crear mi primera invitación',
+    })
+    .click();
+
+  return page.getByRole('form', {
+    name: 'Diseña tu borrador',
+  });
+};
+
+const readStoredProjects = async (page: Page) => {
+  const serializedLibrary = await page.evaluate(
+    (storageKey) => window.localStorage.getItem(storageKey),
+    invitationProjectLibraryStorageKey,
+  );
+
+  return serializedLibrary ? parseInvitationProjectLibrary(serializedLibrary) : null;
+};
+
+test.describe('Invitation project library', () => {
+  test('creates a project and updates its preview while it is edited', async ({ page }) => {
     const pageErrors = monitorPageErrors(page);
     const response = await page.goto('/studio');
 
     expect(response).not.toBeNull();
     expect(response?.ok()).toBe(true);
 
-    const form = page.getByRole('form', {
-      name: 'Diseña tu borrador',
-    });
+    await expect(
+      page.getByRole('heading', {
+        level: 1,
+        name: 'Crea y organiza invitaciones que se sienten tuyas',
+      }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('heading', {
+        name: 'Mis invitaciones',
+      }),
+    ).toBeVisible();
+
+    const form = await createFirstProject(page);
     const preview = page.getByRole('article', {
       name: 'Vista previa de la invitación',
     });
 
     await form
       .getByRole('textbox', {
-        name: 'Título del evento',
+        name: /^Título del evento\b/u,
       })
       .fill('Graduación de Valeria');
     await form.getByLabel('Fecha del evento').fill('2027-06-25');
@@ -48,6 +83,10 @@ test.describe('Invitation draft studio', () => {
     await expect(preview).toContainText('Jardín de los Arcos');
     await expect(preview).toContainText('Celebremos juntos el comienzo de una nueva etapa.');
 
+    await expect
+      .poll(async () => (await readStoredProjects(page))?.[0]?.content.eventTitle)
+      .toBe('Graduación de Valeria');
+
     expect(pageErrors).toEqual([]);
   });
 
@@ -58,14 +97,12 @@ test.describe('Invitation draft studio', () => {
     expect(response).not.toBeNull();
     expect(response?.ok()).toBe(true);
 
-    const form = page.getByRole('form', {
-      name: 'Diseña tu borrador',
-    });
+    const form = await createFirstProject(page);
     const preview = page.getByRole('article', {
       name: 'Vista previa de la invitación',
     });
     const title = form.getByRole('textbox', {
-      name: 'Título del evento',
+      name: /^Título del evento\b/u,
     });
     const lavenderTheme = form.getByRole('radio', {
       name: 'Lavanda',
@@ -94,6 +131,10 @@ test.describe('Invitation draft studio', () => {
     await expect(preview).toContainText('Andrea & Mateo');
     await expect(preview).toContainText('18 de octubre de 2026');
 
+    await expect
+      .poll(async () => (await readStoredProjects(page))?.[0]?.content.eventTitle)
+      .toBe('Andrea & Mateo');
+
     expect(pageErrors).toEqual([]);
   });
 
@@ -109,25 +150,24 @@ test.describe('Invitation draft studio', () => {
     expect(response).not.toBeNull();
     expect(response?.ok()).toBe(true);
 
-    const form = page.getByRole('form', {
-      name: 'Diseña tu borrador',
-    });
+    await expect(
+      page.getByRole('heading', {
+        level: 1,
+        name: 'Crea y organiza invitaciones que se sienten tuyas',
+      }),
+    ).toBeVisible();
+
+    const form = await createFirstProject(page);
     const preview = page.getByRole('article', {
       name: 'Vista previa de la invitación',
     });
 
-    await expect(
-      page.getByRole('heading', {
-        level: 1,
-        name: 'Diseña una invitación que se siente tuya',
-      }),
-    ).toBeVisible();
     await expect(form).toBeVisible();
     await expect(preview).toBeVisible();
 
     await form
       .getByRole('textbox', {
-        name: 'Título del evento',
+        name: /^Título del evento\b/u,
       })
       .fill('Fiesta móvil');
 
@@ -138,32 +178,23 @@ test.describe('Invitation draft studio', () => {
       scrollWidth: document.documentElement.scrollWidth,
     }));
 
+    expect(pageDimensions.clientWidth).toBe(320);
     expect(pageDimensions.scrollWidth).toBeLessThanOrEqual(pageDimensions.clientWidth);
     expect(pageErrors).toEqual([]);
   });
 
-  test('restores a customized draft after reloading the page', async ({ page }) => {
+  test('restores a customized project after reloading the page', async ({ page }) => {
     const pageErrors = monitorPageErrors(page);
     const response = await page.goto('/studio');
 
     expect(response).not.toBeNull();
     expect(response?.ok()).toBe(true);
 
-    const form = page.getByRole('form', {
-      name: 'Diseña tu borrador',
-    });
-    const preview = page.getByRole('article', {
-      name: 'Vista previa de la invitación',
-    });
-    const persistenceStatus = page.getByRole('status', {
-      name: 'Estado del borrador',
-    });
-
-    await expect(persistenceStatus).toContainText('Los cambios se guardarán en este navegador.');
+    const form = await createFirstProject(page);
 
     await form
       .getByRole('textbox', {
-        name: 'Título del evento',
+        name: /^Título del evento\b/u,
       })
       .fill('Aniversario de Lucía y Daniel');
     await form.getByLabel('Fecha del evento').fill('2028-04-15');
@@ -183,66 +214,78 @@ test.describe('Invitation draft studio', () => {
       })
       .check();
 
-    await expect(persistenceStatus).toContainText('Borrador guardado en este navegador.');
-
-    const storedValue = await page.evaluate(
-      (storageKey) => window.localStorage.getItem(storageKey),
-      invitationDraftStorageKey,
-    );
-
-    expect(storedValue).not.toBeNull();
+    await expect
+      .poll(async () => (await readStoredProjects(page))?.[0]?.content.eventTitle)
+      .toBe('Aniversario de Lucía y Daniel');
 
     const reloadResponse = await page.reload();
 
     expect(reloadResponse).not.toBeNull();
     expect(reloadResponse?.ok()).toBe(true);
 
-    await expect(persistenceStatus).toContainText('Borrador recuperado de este navegador.');
     await expect(
-      form.getByRole('textbox', {
-        name: 'Título del evento',
+      page.getByRole('status', {
+        name: 'Estado de la biblioteca',
+      }),
+    ).toContainText('Invitaciones recuperadas de este navegador.');
+
+    await expect(
+      page.getByRole('heading', {
+        name: 'Aniversario de Lucía y Daniel',
+      }),
+    ).toBeVisible();
+
+    await page
+      .getByRole('button', {
+        name: 'Abrir Aniversario de Lucía y Daniel',
+      })
+      .click();
+
+    const restoredForm = page.getByRole('form', {
+      name: 'Diseña tu borrador',
+    });
+    const restoredPreview = page.getByRole('article', {
+      name: 'Vista previa de la invitación',
+    });
+
+    await expect(
+      restoredForm.getByRole('textbox', {
+        name: /^Título del evento\b/u,
       }),
     ).toHaveValue('Aniversario de Lucía y Daniel');
-    await expect(form.getByLabel('Fecha del evento')).toHaveValue('2028-04-15');
+    await expect(restoredForm.getByLabel('Fecha del evento')).toHaveValue('2028-04-15');
     await expect(
-      form.getByRole('textbox', {
+      restoredForm.getByRole('textbox', {
         name: 'Lugar',
       }),
     ).toHaveValue('Casa del Lago');
     await expect(
-      form.getByRole('textbox', {
+      restoredForm.getByRole('textbox', {
         name: 'Mensaje',
       }),
     ).toHaveValue('Celebremos una nueva etapa de nuestra historia.');
     await expect(
-      form.getByRole('radio', {
+      restoredForm.getByRole('radio', {
         name: 'Medianoche',
       }),
     ).toBeChecked();
-    await expect(preview).toHaveAttribute('data-theme', 'midnight');
-    await expect(preview).toContainText('Aniversario de Lucía y Daniel');
-    await expect(preview).toContainText('15 de abril de 2028');
+    await expect(restoredPreview).toHaveAttribute('data-theme', 'midnight');
+    await expect(restoredPreview).toContainText('Aniversario de Lucía y Daniel');
+    await expect(restoredPreview).toContainText('15 de abril de 2028');
 
     expect(pageErrors).toEqual([]);
   });
 
-  test('clears the persisted draft and keeps the initial example after reloading', async ({
-    page,
-  }) => {
+  test('persists the restored initial example inside its project', async ({ page }) => {
     const pageErrors = monitorPageErrors(page);
     const response = await page.goto('/studio');
 
     expect(response).not.toBeNull();
     expect(response?.ok()).toBe(true);
 
-    const form = page.getByRole('form', {
-      name: 'Diseña tu borrador',
-    });
-    const persistenceStatus = page.getByRole('status', {
-      name: 'Estado del borrador',
-    });
+    const form = await createFirstProject(page);
     const title = form.getByRole('textbox', {
-      name: 'Título del evento',
+      name: /^Título del evento\b/u,
     });
     const lavenderTheme = form.getByRole('radio', {
       name: 'Lavanda',
@@ -251,12 +294,8 @@ test.describe('Invitation draft studio', () => {
       name: 'Champaña',
     });
 
-    await expect(persistenceStatus).toContainText('Los cambios se guardarán en este navegador.');
-
-    await title.fill('Borrador que será eliminado');
+    await title.fill('Proyecto temporal');
     await champagneTheme.check();
-
-    await expect(persistenceStatus).toContainText('Borrador guardado en este navegador.');
 
     await form
       .getByRole('button', {
@@ -264,38 +303,102 @@ test.describe('Invitation draft studio', () => {
       })
       .click();
 
-    await expect(persistenceStatus).toContainText(
-      'Borrador local eliminado; restauramos el ejemplo inicial.',
-    );
     await expect(title).toHaveValue('Andrea & Mateo');
     await expect(lavenderTheme).toBeChecked();
 
-    const storedValueAfterReset = await page.evaluate(
-      (storageKey) => window.localStorage.getItem(storageKey),
-      invitationDraftStorageKey,
-    );
+    await expect
+      .poll(async () => (await readStoredProjects(page))?.[0]?.content.eventTitle)
+      .toBe('Andrea & Mateo');
 
-    expect(storedValueAfterReset).toBeNull();
+    await page
+      .getByRole('button', {
+        name: 'Volver a Mis invitaciones',
+      })
+      .click();
 
-    const reloadResponse = await page.reload();
+    await expect(
+      page.getByRole('heading', {
+        name: 'Andrea & Mateo',
+      }),
+    ).toBeVisible();
 
-    expect(reloadResponse).not.toBeNull();
-    expect(reloadResponse?.ok()).toBe(true);
+    await page.reload();
 
-    await expect(persistenceStatus).toContainText('Los cambios se guardarán en este navegador.');
-    await expect(title).toHaveValue('Andrea & Mateo');
-    await expect(lavenderTheme).toBeChecked();
+    await page
+      .getByRole('button', {
+        name: 'Abrir Andrea & Mateo',
+      })
+      .click();
+
+    await expect(
+      page
+        .getByRole('form', {
+          name: 'Diseña tu borrador',
+        })
+        .getByRole('textbox', {
+          name: /^Título del evento\b/u,
+        }),
+    ).toHaveValue('Andrea & Mateo');
 
     expect(pageErrors).toEqual([]);
   });
 
-  test('discards corrupted browser data without breaking the editor', async ({ page }) => {
+  test('duplicates and deletes local projects', async ({ page }) => {
+    const pageErrors = monitorPageErrors(page);
+    const response = await page.goto('/studio');
+
+    expect(response).not.toBeNull();
+    expect(response?.ok()).toBe(true);
+
+    await createFirstProject(page);
+
+    await page
+      .getByRole('button', {
+        name: 'Volver a Mis invitaciones',
+      })
+      .click();
+
+    await page
+      .getByRole('button', {
+        name: 'Duplicar Andrea & Mateo',
+      })
+      .click();
+
+    await expect(
+      page.getByRole('heading', {
+        name: 'Andrea & Mateo',
+      }),
+    ).toHaveCount(2);
+
+    page.once('dialog', async (dialog) => {
+      await dialog.accept();
+    });
+
+    await page
+      .getByRole('button', {
+        name: 'Eliminar Andrea & Mateo',
+      })
+      .first()
+      .click();
+
+    await expect(
+      page.getByRole('heading', {
+        name: 'Andrea & Mateo',
+      }),
+    ).toHaveCount(1);
+
+    await expect.poll(async () => (await readStoredProjects(page))?.length).toBe(1);
+
+    expect(pageErrors).toEqual([]);
+  });
+
+  test('discards corrupted library data without breaking project creation', async ({ page }) => {
     await page.addInitScript(
       ({ storageKey }) => {
         window.localStorage.setItem(storageKey, '{not-valid-json');
       },
       {
-        storageKey: invitationDraftStorageKey,
+        storageKey: invitationProjectLibraryStorageKey,
       },
     );
 
@@ -305,37 +408,34 @@ test.describe('Invitation draft studio', () => {
     expect(response).not.toBeNull();
     expect(response?.ok()).toBe(true);
 
-    const form = page.getByRole('form', {
-      name: 'Diseña tu borrador',
-    });
-    const preview = page.getByRole('article', {
-      name: 'Vista previa de la invitación',
-    });
-    const persistenceStatus = page.getByRole('status', {
-      name: 'Estado del borrador',
-    });
+    await expect(
+      page.getByRole('heading', {
+        name: 'Mis invitaciones',
+      }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole('button', {
+        name: 'Crear mi primera invitación',
+      }),
+    ).toBeVisible();
 
-    await expect(persistenceStatus).toContainText(
-      'Se descartó un borrador guardado que ya no era válido.',
-    );
+    await expect
+      .poll(() =>
+        page.evaluate(
+          (storageKey) => window.localStorage.getItem(storageKey),
+          invitationProjectLibraryStorageKey,
+        ),
+      )
+      .toBeNull();
+
+    const form = await createFirstProject(page);
+
     await expect(
       form.getByRole('textbox', {
-        name: 'Título del evento',
+        name: /^Título del evento\b/u,
       }),
     ).toHaveValue('Andrea & Mateo');
-    await expect(
-      form.getByRole('radio', {
-        name: 'Lavanda',
-      }),
-    ).toBeChecked();
-    await expect(preview).toContainText('Andrea & Mateo');
 
-    const storedValue = await page.evaluate(
-      (storageKey) => window.localStorage.getItem(storageKey),
-      invitationDraftStorageKey,
-    );
-
-    expect(storedValue).toBeNull();
     expect(pageErrors).toEqual([]);
   });
 });

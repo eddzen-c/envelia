@@ -69,17 +69,17 @@ test.describe('Marketing experience', () => {
     await expect(
       page.getByRole('heading', {
         level: 1,
-        name: 'Diseña una invitación que se siente tuya',
+        name: 'Crea y organiza invitaciones que se sienten tuyas',
       }),
     ).toBeVisible();
     await expect(
-      page.getByRole('form', {
-        name: 'Diseña tu borrador',
+      page.getByRole('heading', {
+        name: 'Mis invitaciones',
       }),
     ).toBeVisible();
     await expect(
-      page.getByRole('article', {
-        name: 'Vista previa de la invitación',
+      page.getByRole('button', {
+        name: 'Crear mi primera invitación',
       }),
     ).toBeVisible();
 

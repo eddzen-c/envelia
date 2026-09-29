@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-import { InvitationDraftWorkspace } from '@/features/invitation-draft/components/invitation-draft-workspace';
+import { InvitationProjectLibraryWorkspace } from '@/features/invitation-draft/components/invitation-project-library-workspace';
 
 export const metadata: Metadata = {
-  title: 'Borrador de invitación | Envelia Studio',
+  title: 'Mis invitaciones | Envelia Studio',
   description:
-    'Personaliza los datos principales de una invitación y observa su vista previa al instante.',
+    'Crea, organiza y continúa editando tus invitaciones digitales desde Envelia Studio.',
 };
 
 export default function StudioPage() {
@@ -28,17 +28,17 @@ export default function StudioPage() {
               Envelia Studio
             </p>
             <h1 className="mt-3 font-display text-4xl leading-tight font-semibold sm:text-5xl">
-              Diseña una invitación que se siente tuya
+              Crea y organiza invitaciones que se sienten tuyas
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-7 text-muted sm:text-lg">
-              Ajusta la información esencial, explora estilos cuidadosamente seleccionados y observa
-              el resultado mientras escribes.
+              Conserva varios proyectos en este navegador, continúa editándolos cuando quieras y
+              comparte cada invitación con un enlace.
             </p>
           </div>
         </header>
 
-        <section aria-label="Editor interactivo de invitaciones">
-          <InvitationDraftWorkspace />
+        <section aria-label="Biblioteca y editor de invitaciones">
+          <InvitationProjectLibraryWorkspace />
         </section>
       </div>
     </main>
