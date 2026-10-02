@@ -20,7 +20,9 @@
     "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
+    "@better-auth/drizzle-adapter": "1.7.6",
     "@neondatabase/serverless": "1.1.0",
+    "better-auth": "1.7.6",
     "drizzle-orm": "0.45.3",
     "next": "16.3.3",
     "react": "19.2.8",
