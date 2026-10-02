@@ -5,6 +5,7 @@ import {
   index,
   pgEnum,
   pgTable,
+  text,
   timestamp,
   uniqueIndex,
   varchar,
@@ -19,6 +20,8 @@ import {
   invitationProjectStatuses,
 } from '../../../features/invitation-draft/model/invitation-project';
 
+import { user } from './auth';
+
 export const invitationProjectStatusEnum = pgEnum(
   'invitation_project_status',
   invitationProjectStatuses,
@@ -32,9 +35,9 @@ export const invitationProjects = pgTable(
     projectId: varchar('project_id', {
       length: invitationProjectIdentityMaxLength,
     }).primaryKey(),
-    ownerId: varchar('owner_id', {
-      length: invitationProjectIdentityMaxLength,
-    }).notNull(),
+    ownerId: text('owner_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
     eventTitle: varchar('event_title', {
       length: invitationDraftLimits.eventTitle,
     }).notNull(),
@@ -77,6 +80,10 @@ export const invitationProjects = pgTable(
     check(
       'invitation_projects_project_id_format_check',
       sql`${table.projectId} ~ '^[A-Za-z0-9][A-Za-z0-9_-]*$'`,
+    ),
+    check(
+      'invitation_projects_owner_id_length_check',
+      sql`char_length(${table.ownerId}) <= ${sql.raw(String(invitationProjectIdentityMaxLength))}`,
     ),
     check(
       'invitation_projects_owner_id_format_check',

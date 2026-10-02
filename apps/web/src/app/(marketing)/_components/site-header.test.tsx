@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { SiteHeader } from './site-header';
@@ -14,13 +14,39 @@ describe('SiteHeader', () => {
     ).toHaveAttribute('href', '/');
   });
 
-  it('provides direct access to the invitation studio', () => {
+  it('exposes the account access navigation', () => {
+    render(<SiteHeader />);
+
+    const accountNavigation = screen.getByRole('navigation', {
+      name: 'Acceso a tu cuenta',
+    });
+
+    expect(
+      within(accountNavigation).getByRole('link', {
+        name: 'Iniciar sesión',
+      }),
+    ).toHaveAttribute('href', '/iniciar-sesion');
+
+    expect(
+      within(accountNavigation).getByRole('link', {
+        name: 'Crear cuenta',
+      }),
+    ).toHaveAttribute('href', '/crear-cuenta');
+  });
+
+  it('does not bypass authentication from the public header', () => {
     render(<SiteHeader />);
 
     expect(
-      screen.getByRole('link', {
+      screen.queryByRole('link', {
         name: 'Abrir Studio',
       }),
-    ).toHaveAttribute('href', '/studio');
+    ).not.toBeInTheDocument();
+
+    expect(
+      screen.queryByRole('link', {
+        name: 'Crear mi invitación',
+      }),
+    ).not.toBeInTheDocument();
   });
 });
