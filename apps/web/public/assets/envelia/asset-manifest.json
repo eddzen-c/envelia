@@ -1,0 +1,726 @@
+{
+  "version": 1,
+  "format": "webp",
+  "assets": [
+    {
+      "path": "/assets/envelia/brand/logo-horizontal-dark.webp",
+      "role": "Logotipo horizontal para fondos oscuros",
+      "source": "logo-horizontal-fondo-oscuro.png",
+      "width": 1600,
+      "height": 533,
+      "bytes": 513200,
+      "sha256": "ffa45a5bce61790cddb54c80c88b11177969382eec4c81d78a7eba241ea4490a"
+    },
+    {
+      "path": "/assets/envelia/brand/logo-horizontal-light.webp",
+      "role": "Logotipo horizontal para fondos claros",
+      "source": "logo-horizontal-fondo-blanco.png",
+      "width": 1600,
+      "height": 533,
+      "bytes": 426414,
+      "sha256": "41783070b5ba341c6e7a25c900ed4348f1285f84b9089ce3a7aeec6c2d93c961"
+    },
+    {
+      "path": "/assets/envelia/brand/logo-stacked-dark.webp",
+      "role": "Logotipo apilado para fondos oscuros",
+      "source": "logo-apilado-fondo-oscuro.png",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 913858,
+      "sha256": "1cce9635129b5a282a0d1f1b947e8671cca007d05fc9ddc107ae6464cc85ebf0"
+    },
+    {
+      "path": "/assets/envelia/brand/logo-stacked-light.webp",
+      "role": "Logotipo apilado para fondos claros",
+      "source": "logo-apilado-fondo-blanco.png",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 802768,
+      "sha256": "abcb8a0b65c06974c3a3cd58bc9ccbaedbbc494be3fb77904573981beadc4237"
+    },
+    {
+      "path": "/assets/envelia/brand/symbol-dark.webp",
+      "role": "Símbolo para fondos oscuros",
+      "source": "simbolo-fondo-oscuro.png",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 1085454,
+      "sha256": "71ecf0988d78d89531bd5ebbce04d27ac8d11e559d2bf39d38d9e2564fe872dd"
+    },
+    {
+      "path": "/assets/envelia/brand/symbol-light.webp",
+      "role": "Símbolo para fondos claros",
+      "source": "simbolo-fondo-blanco.png",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 830832,
+      "sha256": "52e095129d4993967fd5001ebfc9fb79fa6924e4ee368e4e155e5e063da6ad7e"
+    },
+    {
+      "path": "/assets/envelia/contact/appointment-supplied.webp",
+      "role": "Asset adicional de la experiencia pública",
+      "source": "appointment-supplied.png",
+      "width": 1896,
+      "height": 829,
+      "bytes": 1353958,
+      "sha256": "efdbe4d4ea949ab7c4b89af962152c92332cfdc5f4117122fca60395596b20cf"
+    },
+    {
+      "path": "/assets/envelia/contact/appointment.webp",
+      "role": "Banner de cita o asesoría",
+      "source": "Espacio de trabajo cálido con flores y café.png",
+      "width": 1920,
+      "height": 639,
+      "bytes": 65400,
+      "sha256": "49e89286f062ee3b07979cb108aea450161f1d6e8e6cd3317d94314d2db2903c"
+    },
+    {
+      "path": "/assets/envelia/contact/background-supplied.webp",
+      "role": "Asset adicional de la experiencia pública",
+      "source": "background-supplied.png",
+      "width": 2047,
+      "height": 373,
+      "bytes": 563664,
+      "sha256": "b78ab64a10bfb70e574f042f50d44ea9c524890c4f4cb5b7e6bc64349aca0d6d"
+    },
+    {
+      "path": "/assets/envelia/contact/hero-supplied.webp",
+      "role": "Asset adicional de la experiencia pública",
+      "source": "hero-supplied.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 1561928,
+      "sha256": "812d298a751b2dd8adbc9691fcd392915f96fef5b370169427693c57db8b0f19"
+    },
+    {
+      "path": "/assets/envelia/contact/hero.webp",
+      "role": "Imagen principal de Contacto",
+      "source": "Papelería nupcial dorada sobre seda.png",
+      "width": 1832,
+      "height": 859,
+      "bytes": 119018,
+      "sha256": "d2872afc8fa0acba5ad885b9f70bf26bc7c78855eefff0edd2220a94367d75ef"
+    },
+    {
+      "path": "/assets/envelia/help/background.webp",
+      "role": "Fondo de Ayuda",
+      "source": "fondo-ayuda.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 142280,
+      "sha256": "e9f26b11e855be9a30aa2ee0752c746eca6052b79f08073af0049694673247da"
+    },
+    {
+      "path": "/assets/envelia/help/chat.webp",
+      "role": "Conversaciones de ayuda",
+      "source": "02-burbujas-de-chat.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 88236,
+      "sha256": "1754563f2409a34ac59188aaa4c83dedd485247cb0a76eec9e3959bf4f8f13b4"
+    },
+    {
+      "path": "/assets/envelia/help/hero.webp",
+      "role": "Imagen principal de Ayuda",
+      "source": "Espacio de invitaciones florales elegantes.png",
+      "width": 1832,
+      "height": 859,
+      "bytes": 120692,
+      "sha256": "5c981faafd86d7418c7b1053c3b955f81cce16777ee49d437311c6df8e2a4234"
+    },
+    {
+      "path": "/assets/envelia/help/knowledge-base.webp",
+      "role": "Base de conocimiento",
+      "source": "11-base-de-conocimiento.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 121008,
+      "sha256": "f24b996694641ff3198d664542f03ecc562a1f18309058c5fb6cb56210f10afb"
+    },
+    {
+      "path": "/assets/envelia/help/support.webp",
+      "role": "Soporte y conversación",
+      "source": "01-soporte-headset-y-chat.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 95450,
+      "sha256": "a35818c877c072a4d246a16fe67c423deaad7e5721c24736f89d4012f0c9e98d"
+    },
+    {
+      "path": "/assets/envelia/home/editor-laptop.webp",
+      "role": "Editor mostrado en laptop",
+      "source": "03-editor-en-laptop.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 217904,
+      "sha256": "08153363c5752af90232ceea5428b441988e092e5c6b04f217c6ca0f773627b5"
+    },
+    {
+      "path": "/assets/envelia/home/floral-background.webp",
+      "role": "Fondo floral decorativo",
+      "source": "06-fondo-floral-limpio.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 138862,
+      "sha256": "15ea4e4ffbb2a03a9d4e87c62163d2d8363ea4298d7ff95ac049c74805f9ad1d"
+    },
+    {
+      "path": "/assets/envelia/home/hero.webp",
+      "role": "Imagen principal de Inicio",
+      "source": "hero-inicio.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 139524,
+      "sha256": "67f09a60baccb90c7019dd42643660cd8ee922777d229e9f4536fa4ef1d1e84d"
+    },
+    {
+      "path": "/assets/envelia/home/plans-showcase.webp",
+      "role": "Presentación visual de planes",
+      "source": "04-presentacion-de-planes.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 220678,
+      "sha256": "43f9c0aa9fb1769d3f510fbd84427b1a43397cf655da686385811509f094a9d5"
+    },
+    {
+      "path": "/assets/envelia/home/stationery-inspiration.webp",
+      "role": "Papelería de inspiración",
+      "source": "05-papeleria-inspiracion.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 199174,
+      "sha256": "ff97667b8b81c4fc420a279d63c8d6949053a79fecd1b863bb2b003831e73b07"
+    },
+    {
+      "path": "/assets/envelia/home/wedding-invitation-detail.webp",
+      "role": "Detalle de invitación",
+      "source": "02-invitacion-boda-segunda-toma.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 216484,
+      "sha256": "9901cdddac4960c3bce8e4417dcc334ac621742b3befdd06de209815e4f3665c"
+    },
+    {
+      "path": "/assets/envelia/home/wedding-invitation.webp",
+      "role": "Invitación destacada",
+      "source": "01-invitacion-boda-principal.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 212896,
+      "sha256": "672e135c788d5b10e32fbf20844ff302142e2eeab2d91be52326effe1aabeee5"
+    },
+    {
+      "path": "/assets/envelia/how-it-works/background.webp",
+      "role": "Fondo de Cómo funciona",
+      "source": "fondo-como-funciona.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 142964,
+      "sha256": "67d30e5c7ace5b4c5e81a10ec4e2c33e952d5d2375e7961ec20ed60850bb4a76"
+    },
+    {
+      "path": "/assets/envelia/how-it-works/benefits-background-cropped.webp",
+      "role": "Asset de la experiencia pública",
+      "source": "benefits-background-cropped.webp",
+      "width": 2048,
+      "height": 164,
+      "bytes": 19320,
+      "sha256": "5cdb7976f6f51e44c83a13313cc09dfdbb52ec30ddec2c5984d89da42cd9b5db"
+    },
+    {
+      "path": "/assets/envelia/how-it-works/benefits-background-final.webp",
+      "role": "Asset de la experiencia pública",
+      "source": "benefits-background-final.webp",
+      "width": 2048,
+      "height": 682,
+      "bytes": 43904,
+      "sha256": "77689d4141603699de13c6466cd898fbd43a6f1789f279b145206cbe73774680"
+    },
+    {
+      "path": "/assets/envelia/how-it-works/benefits-background-overlap.webp",
+      "role": "Asset de la experiencia pública",
+      "source": "benefits-background-overlap.webp",
+      "width": 2048,
+      "height": 100,
+      "bytes": 14512,
+      "sha256": "3d6e4b55222d2a9fedc03f3702d3c4e6b857f88e64cc769268742af9464dd158"
+    },
+    {
+      "path": "/assets/envelia/how-it-works/benefits-background-v2.webp",
+      "role": "Asset de la experiencia pública",
+      "source": "benefits-background-v2.webp",
+      "width": 2048,
+      "height": 682,
+      "bytes": 43904,
+      "sha256": "77689d4141603699de13c6466cd898fbd43a6f1789f279b145206cbe73774680"
+    },
+    {
+      "path": "/assets/envelia/how-it-works/benefits-background.webp",
+      "role": "Asset de la experiencia pública",
+      "source": "benefits-background.webp",
+      "width": 2048,
+      "height": 682,
+      "bytes": 43904,
+      "sha256": "77689d4141603699de13c6466cd898fbd43a6f1789f279b145206cbe73774680"
+    },
+    {
+      "path": "/assets/envelia/how-it-works/benefits.webp",
+      "role": "Beneficios del proceso",
+      "source": "06-beneficios-del-proceso.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 218776,
+      "sha256": "eb62c68a09acc0f291bad34a0e5ddd7a7340963912633ed75e99f2cb3df2c7aa"
+    },
+    {
+      "path": "/assets/envelia/how-it-works/customize.webp",
+      "role": "Personalización en el editor",
+      "source": "01-editor-personalizacion-laptop.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 234288,
+      "sha256": "dca03da7d3d4f31e14b49c324c08796895a14b6c8f89a80556c266eb0d5bf54a"
+    },
+    {
+      "path": "/assets/envelia/how-it-works/edit-and-save.webp",
+      "role": "Edición y guardado",
+      "source": "03-editor-y-guardado.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 201256,
+      "sha256": "dd7f914461f4ec283947638b1526e819b4192a14febdc83e659774a04fef48b0"
+    },
+    {
+      "path": "/assets/envelia/how-it-works/hero-background-v2.webp",
+      "role": "Asset de la experiencia pública",
+      "source": "hero-background-v2.webp",
+      "width": 2048,
+      "height": 670,
+      "bytes": 92570,
+      "sha256": "c356d87af2a38b02d88d3584f4f9c7e3b7a4b40eb8e5784dfa575ebf1ccdac07"
+    },
+    {
+      "path": "/assets/envelia/how-it-works/hero-editor.webp",
+      "role": "Asset de la experiencia pública",
+      "source": "hero-editor.webp",
+      "width": 1832,
+      "height": 859,
+      "bytes": 128134,
+      "sha256": "f78cd71ce769e57f5667af4ded712cb14fca9c83156f0a672837bbcbd4490727"
+    },
+    {
+      "path": "/assets/envelia/how-it-works/process-background-v2.webp",
+      "role": "Asset de la experiencia pública",
+      "source": "process-background-v2.webp",
+      "width": 2048,
+      "height": 682,
+      "bytes": 43982,
+      "sha256": "440094f169f0474ef04012281e0f3d12319119d5fe27a2b857d3e5b24b9d3dcd"
+    },
+    {
+      "path": "/assets/envelia/how-it-works/process-background.webp",
+      "role": "Asset de la experiencia pública",
+      "source": "process-background.webp",
+      "width": 2048,
+      "height": 768,
+      "bytes": 82646,
+      "sha256": "10d1ba3cd6059371fa7b85b389aa4b4579ca26ccc680a9ee49b2a43d8d88db6d"
+    },
+    {
+      "path": "/assets/envelia/how-it-works/rsvp.webp",
+      "role": "Confirmaciones RSVP",
+      "source": "05-confirmaciones-rsvp.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 184814,
+      "sha256": "5128b34fd02cd0cdcd78a10903774a4187acdceb5ba55ae40465c718e1531cdf"
+    },
+    {
+      "path": "/assets/envelia/how-it-works/share-mobile.webp",
+      "role": "Compartir desde móvil",
+      "source": "04-compartir-invitacion-movil.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 229596,
+      "sha256": "a51dbf52ea0bbd4d4a2f9137fb64f06fe1b46eac2e903567d177b756e653fc4e"
+    },
+    {
+      "path": "/assets/envelia/how-it-works/style-collection.webp",
+      "role": "Colección de estilos",
+      "source": "02-coleccion-de-estilos.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 256580,
+      "sha256": "b7f7b99badaa8d9bf0c7a46cb6bbd16463eee3c91ba366aa82b9b7049e51acb5"
+    },
+    {
+      "path": "/assets/envelia/icons/botanical-leaf.webp",
+      "role": "Asset de la experiencia pública",
+      "source": "botanical-leaf.webp",
+      "width": 224,
+      "height": 224,
+      "bytes": 6224,
+      "sha256": "e6d8da8424713aadc37739348af65ba8a9c3ee0f471ac54d818c15e3e4ff37d8"
+    },
+    {
+      "path": "/assets/envelia/icons/category-all.webp",
+      "role": "Asset de la experiencia pública",
+      "source": "category-all.webp",
+      "width": 224,
+      "height": 224,
+      "bytes": 4840,
+      "sha256": "febe1b42984550f539072e6612beed6f2e7d3ac3324468031a762c5e731e28bb"
+    },
+    {
+      "path": "/assets/envelia/icons/category-baptism.webp",
+      "role": "Asset de la experiencia pública",
+      "source": "category-baptism.webp",
+      "width": 224,
+      "height": 224,
+      "bytes": 5552,
+      "sha256": "5682c61401e8774bdfa78131555f2852366b22936ce62a604a8e16d1e23e542f"
+    },
+    {
+      "path": "/assets/envelia/icons/category-birthday.webp",
+      "role": "Asset de la experiencia pública",
+      "source": "category-birthday.webp",
+      "width": 224,
+      "height": 224,
+      "bytes": 6014,
+      "sha256": "45d8e7c2bd767cb5434c5b5f4dcb15b2b8bafe80b9be2186272cbb8c67415d9a"
+    },
+    {
+      "path": "/assets/envelia/icons/category-business.webp",
+      "role": "Asset de la experiencia pública",
+      "source": "category-business.webp",
+      "width": 224,
+      "height": 224,
+      "bytes": 5958,
+      "sha256": "b1f2b06db87fa1effd0aee7c5dd3e8fde346176dd530565bcf9fcffc30e9edfb"
+    },
+    {
+      "path": "/assets/envelia/icons/category-communion.webp",
+      "role": "Asset de la experiencia pública",
+      "source": "category-communion.webp",
+      "width": 224,
+      "height": 224,
+      "bytes": 5566,
+      "sha256": "5e4e7fbb1d1a4350826961cb889c2950e3aaa9361405b1bc43e3904a68916177"
+    },
+    {
+      "path": "/assets/envelia/icons/category-special.webp",
+      "role": "Asset de la experiencia pública",
+      "source": "category-special.webp",
+      "width": 224,
+      "height": 224,
+      "bytes": 8018,
+      "sha256": "d1526b0d1e6ad4ec126fac252c967fe9a3fc7bd7ca8b37ab82dddf2e8ed71273"
+    },
+    {
+      "path": "/assets/envelia/icons/category-wedding.webp",
+      "role": "Asset de la experiencia pública",
+      "source": "category-wedding.webp",
+      "width": 224,
+      "height": 224,
+      "bytes": 5822,
+      "sha256": "6ee642ba96d9c41a901e7d5cc6ddba3c40e79dc7f5b6aea434f20c44dafede3e"
+    },
+    {
+      "path": "/assets/envelia/icons/category-xv.webp",
+      "role": "Asset de la experiencia pública",
+      "source": "category-xv.webp",
+      "width": 224,
+      "height": 224,
+      "bytes": 5428,
+      "sha256": "f052fe3dd7dde36893773259f803cf7d2ecd68d5dab5f68e9c3cccf3347d7623"
+    },
+    {
+      "path": "/assets/envelia/inspiration/baby-shower.webp",
+      "role": "Inspiración de baby shower",
+      "source": "04-baby-shower-emilio.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 151474,
+      "sha256": "eee3a427cdef9871fd58ff0b4e894b166576772eca56295f9e76ba60c746f6ce"
+    },
+    {
+      "path": "/assets/envelia/inspiration/background-supplied.webp",
+      "role": "Asset adicional de la experiencia pública",
+      "source": "background-supplied.png",
+      "width": 2047,
+      "height": 373,
+      "bytes": 563664,
+      "sha256": "b78ab64a10bfb70e574f042f50d44ea9c524890c4f4cb5b7e6bc64349aca0d6d"
+    },
+    {
+      "path": "/assets/envelia/inspiration/background.webp",
+      "role": "Fondo de Inspiración",
+      "source": "fondo-inspiracion.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 107728,
+      "sha256": "267e1ce694ae0aa8f4f9edae43c0b39799e769e89bf153e0f06e1754a425ca70"
+    },
+    {
+      "path": "/assets/envelia/inspiration/birthday.webp",
+      "role": "Inspiración de cumpleaños",
+      "source": "05-cumpleanos-andrea.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 212638,
+      "sha256": "8ac2beb71a35f638bf19895dca32cb9e1a428be079db9d0d28f52ac378660f07"
+    },
+    {
+      "path": "/assets/envelia/inspiration/burgundy-palette.webp",
+      "role": "Paleta borgoña",
+      "source": "06-paleta-de-color-burdeos.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 270110,
+      "sha256": "1299da18f31e993211a520d750a8348d5dd384e1a2d55540cd73c172b0661c1b"
+    },
+    {
+      "path": "/assets/envelia/inspiration/event-decor.webp",
+      "role": "Decoración de evento",
+      "source": "10-decoracion-de-evento.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 238612,
+      "sha256": "e58c76f4057abb175d8a00650a5260acf3088de2bc66ab4550aa4782ea1ee4cf"
+    },
+    {
+      "path": "/assets/envelia/inspiration/floral-keepsake.webp",
+      "role": "Recuerdo floral",
+      "source": "09-recuerdo-caja-floral.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 176148,
+      "sha256": "84736edec3395dffa76d524dd05ead012743861fdff78da4c7adbc1f6d218803"
+    },
+    {
+      "path": "/assets/envelia/inspiration/hero-reference.webp",
+      "role": "Asset de la experiencia pública",
+      "source": "hero-reference.webp",
+      "width": 1774,
+      "height": 1024,
+      "bytes": 418938,
+      "sha256": "11c1530f3fba6a2c0323cf606023a281e354c784b6e5e3542f85fb5879a6f2bc"
+    },
+    {
+      "path": "/assets/envelia/inspiration/hero-supplied.webp",
+      "role": "Asset adicional de la experiencia pública",
+      "source": "hero-supplied.png",
+      "width": 1774,
+      "height": 887,
+      "bytes": 1531668,
+      "sha256": "710d5e45ce6246a5f1df05451570ffc0a751de33c10d5d2f3d5bb915c5df1796"
+    },
+    {
+      "path": "/assets/envelia/inspiration/lower-reference.webp",
+      "role": "Asset adicional de la experiencia pública",
+      "source": "lower-reference.png",
+      "width": 2048,
+      "height": 768,
+      "bytes": 1016240,
+      "sha256": "94e0c9c98f6a5c2dd9877c4216893d942e3205a4a53c8240fab0e33d720791d8"
+    },
+    {
+      "path": "/assets/envelia/inspiration/monogram.webp",
+      "role": "Tipografía y monograma",
+      "source": "07-tipografia-monograma-a.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 211698,
+      "sha256": "e1ae7949b8d8eb0d4941887e713bb6ed67655225534ea8bd038b79bcf8a50b26"
+    },
+    {
+      "path": "/assets/envelia/inspiration/quinceanera.webp",
+      "role": "Inspiración de XV años",
+      "source": "03-xv-anos-camila.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 216732,
+      "sha256": "3bcadf6870990473b981edbf02d2603ac1cc951999c65dad23f7752a0b74ae95"
+    },
+    {
+      "path": "/assets/envelia/inspiration/table-menu.webp",
+      "role": "Mesa y menú",
+      "source": "08-mesa-y-menu.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 212150,
+      "sha256": "a6f9d763ef6d2210398758c0ade29b6c23c666be9f2198ae995d57bff3f72faf"
+    },
+    {
+      "path": "/assets/envelia/inspiration/wedding-closeup.webp",
+      "role": "Detalle de boda",
+      "source": "02-boda-valeria-santiago-closeup.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 225146,
+      "sha256": "5f73eb687d00e3461a9f802aef62aeaf91dfb236a893610f094af6317f648f26"
+    },
+    {
+      "path": "/assets/envelia/inspiration/wedding-scene.webp",
+      "role": "Escena de boda",
+      "source": "01-boda-valeria-santiago-escena.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 225068,
+      "sha256": "5002bdf30d10a08e79f130d9af93d84300e291b8f455475f21b6cf736114bd27"
+    },
+    {
+      "path": "/assets/envelia/pricing/background.webp",
+      "role": "Fondo de Precios",
+      "source": "fondo-precios.png",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 86952,
+      "sha256": "f11c1cd030e20c84853da626daafa0814003ebf12b84a8a4348b2e5804e7e8a4"
+    },
+    {
+      "path": "/assets/envelia/pricing/cards/basic-original-full.webp",
+      "role": "Asset adicional de la experiencia pública",
+      "source": "basic-original-full.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 1275014,
+      "sha256": "52d6db5dffe30ea70d4ab7a30cf03d516450e5bed25d5cc78abac3215d335894"
+    },
+    {
+      "path": "/assets/envelia/pricing/cards/basic.webp",
+      "role": "Asset de la experiencia pública",
+      "source": "basic.webp",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 60702,
+      "sha256": "d1ee5b82b88d54e423adda9c008e69714f68619d7f569068bcb677317abf2127"
+    },
+    {
+      "path": "/assets/envelia/pricing/cards/premium-original-full.webp",
+      "role": "Asset adicional de la experiencia pública",
+      "source": "premium-original-full.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 1606576,
+      "sha256": "30a9428579686d6c32ca038a5a696f8e252406baff37cd499c7e25d19ca21ae8"
+    },
+    {
+      "path": "/assets/envelia/pricing/cards/premium.webp",
+      "role": "Asset de la experiencia pública",
+      "source": "premium.webp",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 90950,
+      "sha256": "790109af891d960f09e386c8a9d673397a5d173615ce0744d7b0444162a0f606"
+    },
+    {
+      "path": "/assets/envelia/pricing/cards/pro-original-full.webp",
+      "role": "Asset adicional de la experiencia pública",
+      "source": "pro-original-full.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 1345368,
+      "sha256": "6e91edbfcea0d7b0477de45fa151ebb86a2ee69ba66734191bdb349546eabe31"
+    },
+    {
+      "path": "/assets/envelia/pricing/cards/pro.webp",
+      "role": "Asset de la experiencia pública",
+      "source": "pro.webp",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 71354,
+      "sha256": "ac8aef32bbf8bdfac1dbdba74727d7436305abea7e742cb1bd13c26d9a3df61f"
+    },
+    {
+      "path": "/assets/envelia/templates/background.webp",
+      "role": "Fondo de Plantillas",
+      "source": "fondo-plantillas.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 95854,
+      "sha256": "02a51d53556b744e910f3ea39a2258f8c3f3d5cfde33edbbf1ac0c6b9cf9ced0"
+    },
+    {
+      "path": "/assets/envelia/templates/baptism.webp",
+      "role": "Plantilla de bautizo",
+      "source": "06-bautizo-mateo.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 200712,
+      "sha256": "b372a10bc9927d204c810e9f66e0afd715e951652c03cf40c41c862d32ba8ad5"
+    },
+    {
+      "path": "/assets/envelia/templates/birthday.webp",
+      "role": "Plantilla de cumpleaños",
+      "source": "07-cumpleanos-treinta.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 282908,
+      "sha256": "c450b64407f85bbf137f4a6e7797f829bca5e36b1b678d498a6ef27dc9d94e67"
+    },
+    {
+      "path": "/assets/envelia/templates/corporate-event.webp",
+      "role": "Plantilla de evento empresarial",
+      "source": "08-evento-empresarial.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 168294,
+      "sha256": "28e1579e0ae2827c8c44a1624ebd93254bd88132f9fb507c5f28df2f1e244bdd"
+    },
+    {
+      "path": "/assets/envelia/templates/event-details.webp",
+      "role": "Detalles del evento",
+      "source": "03-detalles-del-evento.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 202066,
+      "sha256": "699722aa994d3bca962a090ab83795956f2cccf082925055d73a99b6cbb74eed"
+    },
+    {
+      "path": "/assets/envelia/templates/quinceanera.webp",
+      "role": "Plantilla de XV años",
+      "source": "05-xv-anos-carolina.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 213090,
+      "sha256": "820fac44cfdc95034e19574594394e0d095e195ac3612ac56819a004954e724e"
+    },
+    {
+      "path": "/assets/envelia/templates/stationery-set.webp",
+      "role": "Set de papelería",
+      "source": "09-set-de-papeleria.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 294084,
+      "sha256": "f80cae2dfe06f31cbf6f735b784e720b35c806d8d6bd0ee02f29095e4a62b478"
+    },
+    {
+      "path": "/assets/envelia/templates/thank-you.webp",
+      "role": "Tarjeta de agradecimiento",
+      "source": "04-agradecimiento.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 234440,
+      "sha256": "a4eb48c67218d0750f6dac36dcd6e4afcee2a6ec331ccbc22055d2e02ce2b092"
+    },
+    {
+      "path": "/assets/envelia/templates/wedding-closeup.webp",
+      "role": "Plantilla de boda, acercamiento",
+      "source": "02-boda-valeria-santiago-cercana.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 225650,
+      "sha256": "763086e756951d18f524557488c270557cded3574ac5c8c566eb0cbe15bf4067"
+    },
+    {
+      "path": "/assets/envelia/templates/wedding-overview.webp",
+      "role": "Plantilla de boda, vista general",
+      "source": "01-boda-valeria-santiago-general.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 217156,
+      "sha256": "8823f9d1b90e02231f115b1c8d0fd487dd659b33fb63952d9155e1255bbf7fdf"
+    }
+  ]
+}
