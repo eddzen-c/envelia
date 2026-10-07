@@ -1,141 +1,155 @@
+import Image from 'next/image';
 import Link from 'next/link';
-const experienceItems = [
+
+import { BotanicalDivider } from './_components/botanical-divider';
+import { HomeBenefitList } from './_components/home-benefit-list';
+import { HomeDiscoveryCard } from './_components/home-discovery-card';
+
+const discoveryItems = [
   {
-    step: '01',
-    title: 'Elige',
-    description: 'Parte de una experiencia diseñada para el estilo de tu celebración.',
+    title: 'Plantillas',
+    description: 'Descubre diseños únicos para cada ocasión.',
+    href: '/plantillas',
+    image: '/assets/envelia/home/wedding-invitation-detail.webp',
   },
   {
-    step: '02',
-    title: 'Personaliza',
-    description: 'Adapta textos, colores, momentos y detalles desde un solo lugar.',
+    title: 'Cómo funciona',
+    description: 'Crea tu invitación en simples pasos.',
+    href: '/como-funciona',
+    image: '/assets/envelia/home/editor-laptop.webp',
   },
   {
-    step: '03',
-    title: 'Comparte',
-    description: 'Envía una invitación digital memorable y recibe las respuestas.',
+    title: 'Precios',
+    description: 'Planes flexibles para cada historia.',
+    href: '/precios',
+    image: '/assets/envelia/home/plans-showcase.webp',
+  },
+  {
+    title: 'Inspiración',
+    description: 'Ideas reales para momentos inolvidables.',
+    href: '/inspiracion',
+    image: '/assets/envelia/home/stationery-inspiration.webp',
   },
 ] as const;
 
 export default function HomePage() {
   return (
     <main id="main-content">
-      <section aria-labelledby="hero-title" className="relative isolate overflow-hidden">
-        <div
-          aria-hidden="true"
-          className="absolute -top-32 -right-32 -z-10 size-80 rounded-full bg-brand-200/50 blur-3xl"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute -bottom-40 -left-40 -z-10 size-96 rounded-full bg-champagne-200/50 blur-3xl"
-        />
+      <section
+        aria-labelledby="hero-title"
+        className="relative isolate overflow-hidden border-b border-champagne-200"
+      >
+        <div className="grid min-h-[44rem] lg:grid-cols-[minmax(0,0.92fr)_minmax(32rem,1.08fr)]">
+          <div className="relative flex items-center bg-background px-5 pt-36 pb-16 sm:px-8 lg:px-12 lg:pt-32 xl:pl-[max(3rem,calc((100vw-90rem)/2+3rem))]">
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_18%_20%,rgb(255_255_255_/_75%),transparent_42%),linear-gradient(115deg,transparent_60%,rgb(239_223_189_/_22%))]"
+            />
+            <div className="w-full max-w-3xl">
+              <BotanicalDivider className="justify-start text-champagne-600" />
 
-        <div className="mx-auto grid min-h-[calc(100dvh-5rem)] w-full max-w-7xl items-center gap-14 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-2 lg:px-12 lg:py-24">
-          <div className="max-w-2xl">
-            <p className="mb-5 text-sm font-bold tracking-[0.2em] text-primary uppercase">
-              Diseña · Personaliza · Celebra
-            </p>
-
-            <h1
-              className="font-display text-5xl leading-[0.98] font-semibold tracking-tight text-foreground sm:text-6xl lg:text-7xl"
-              id="hero-title"
-            >
-              Invitaciones digitales <span className="text-primary">que cobran vida.</span>
-            </h1>
-
-            <p className="mt-7 max-w-xl text-lg leading-8 text-muted">
-              Crea experiencias memorables para tus invitados, personaliza cada detalle y administra
-              tu celebración desde un mismo lugar.
-            </p>
-
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Link
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-soft transition-colors hover:bg-brand-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary motion-reduce:transition-none"
-                href="/studio"
+              <p className="mt-5 text-xs font-semibold tracking-[0.32em] text-foreground/65 uppercase">
+                Invitaciones digitales premium
+              </p>
+              <h1
+                className="mt-4 max-w-3xl font-display text-5xl leading-[0.94] font-semibold tracking-[-0.045em] text-primary sm:text-6xl xl:text-[5.7rem]"
+                id="hero-title"
               >
-                Crear mi invitación
-                <span aria-hidden="true">&rarr;</span>
-              </Link>
+                Bienvenida a <span className="block">Envelia Studio</span>
+              </h1>
+              <p className="mt-6 max-w-2xl font-display text-2xl leading-8 text-foreground sm:text-3xl">
+                <em className="font-semibold text-primary">
+                  Diseña invitaciones digitales elegantes
+                </em>
+                <span className="block text-xl not-italic sm:text-2xl">
+                  para los momentos más especiales de tu vida.
+                </span>
+              </p>
 
-              <a
-                className="inline-flex min-h-12 items-center justify-center rounded-full border border-border bg-surface px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:border-brand-300 hover:bg-brand-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary motion-reduce:transition-none"
-                href="#experiencia"
-              >
-                Descubrir la experiencia
-              </a>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground shadow-soft transition-colors hover:bg-brand-900 focus-visible:outline-primary motion-reduce:transition-none"
+                  href="/crear-cuenta"
+                >
+                  <span aria-hidden="true" className="text-champagne-300">
+                    ✦
+                  </span>
+                  Crear invitación
+                  <span aria-hidden="true">→</span>
+                </Link>
+                <Link
+                  className="inline-flex min-h-12 items-center justify-center rounded-full border border-champagne-500 bg-surface/80 px-7 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-champagne-50 focus-visible:outline-primary motion-reduce:transition-none"
+                  href="/plantillas"
+                >
+                  Explorar plantillas
+                </Link>
+              </div>
+
+              <HomeBenefitList />
             </div>
           </div>
 
-          <aside
-            aria-label="Muestra conceptual de una invitación digital"
-            className="relative mx-auto w-full max-w-md"
-            id="muestra"
+          <figure
+            aria-label="Invitación floral premium de Envelia Studio"
+            className="relative min-h-[28rem] overflow-hidden lg:min-h-full"
           >
+            <Image
+              alt="Invitación de boda floral junto a un sobre borgoña y flores blancas"
+              className="object-cover"
+              fill
+              priority
+              sizes="(min-width: 1024px) 55vw, 100vw"
+              src="/assets/envelia/home/wedding-invitation.webp"
+            />
             <div
               aria-hidden="true"
-              className="absolute inset-5 -z-10 rotate-3 rounded-card bg-brand-200/60"
+              className="absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-background to-transparent"
             />
-
-            <div className="rounded-card border border-champagne-200 bg-surface p-6 shadow-soft sm:p-8">
-              <div className="rounded-[1.25rem] border border-champagne-200 bg-background px-6 py-12 text-center sm:px-8 sm:py-16">
-                <p className="text-xs font-bold tracking-[0.24em] text-champagne-700 uppercase">
-                  Una historia comienza
-                </p>
-
-                <p className="mt-7 font-display text-4xl font-semibold text-foreground sm:text-5xl">
-                  Andrea
-                  <span className="block py-2 text-2xl text-primary">&amp;</span>
-                  Mateo
-                </p>
-
-                <div aria-hidden="true" className="mx-auto my-7 h-px w-20 bg-champagne-400" />
-
-                <p className="text-sm font-semibold tracking-[0.14em] text-muted uppercase">
-                  18 · Octubre · 2026
-                </p>
-
-                <p className="mt-5 text-sm leading-6 text-muted">
-                  Cada detalle, cada momento y cada invitado en una experiencia creada para
-                  recordar.
-                </p>
-              </div>
-            </div>
-          </aside>
+          </figure>
         </div>
       </section>
 
       <section
-        aria-labelledby="experience-title"
-        className="border-y border-border bg-surface"
-        id="experiencia"
+        aria-labelledby="discover-title"
+        className="relative bg-surface-muted px-5 py-6 sm:px-8 lg:px-12"
       >
-        <div className="mx-auto w-full max-w-7xl px-5 py-16 sm:px-8 lg:px-12 lg:py-20">
-          <div className="max-w-2xl">
-            <p className="text-sm font-bold tracking-[0.2em] text-primary uppercase">
-              Una experiencia sencilla
-            </p>
+        <h2 className="sr-only" id="discover-title">
+          Descubre Envelia Studio
+        </h2>
+        <div className="mx-auto grid w-full max-w-[90rem] gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {discoveryItems.map((item) => (
+            <HomeDiscoveryCard {...item} key={item.href} />
+          ))}
+        </div>
+      </section>
 
-            <h2
-              className="mt-3 font-display text-3xl font-semibold tracking-tight text-foreground sm:text-4xl"
-              id="experience-title"
-            >
-              De la idea a tus invitados
-            </h2>
-          </div>
-
-          <ol className="mt-10 grid gap-5 md:grid-cols-3">
-            {experienceItems.map((item) => (
-              <li className="rounded-card border border-border bg-background p-6" key={item.step}>
-                <span className="text-sm font-bold text-champagne-700">{item.step}</span>
-
-                <h3 className="mt-5 font-display text-2xl font-semibold text-foreground">
-                  {item.title}
-                </h3>
-
-                <p className="mt-3 leading-7 text-muted">{item.description}</p>
-              </li>
-            ))}
-          </ol>
+      <section
+        aria-labelledby="manifesto-title"
+        className="relative isolate overflow-hidden px-5 py-20 text-center sm:px-8 lg:px-12 lg:py-24"
+      >
+        <Image
+          alt=""
+          aria-hidden="true"
+          className="-z-10 object-cover opacity-90"
+          fill
+          sizes="100vw"
+          src="/assets/envelia/home/floral-background.webp"
+        />
+        <div className="mx-auto max-w-4xl">
+          <BotanicalDivider className="text-champagne-600" />
+          <p className="mt-3 text-xs font-semibold tracking-[0.35em] text-champagne-700 uppercase">
+            Más que invitaciones
+          </p>
+          <h2
+            className="mt-5 font-display text-4xl leading-tight font-semibold text-primary sm:text-5xl"
+            id="manifesto-title"
+          >
+            Diseño que convierte momentos en <em>recuerdos eternos.</em>
+          </h2>
+          <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-foreground/75 sm:text-lg">
+            En Envelia Studio creemos en la belleza de los nuevos comienzos, en esos instantes que
+            merecen ser compartidos de una manera especial.
+          </p>
         </div>
       </section>
     </main>
